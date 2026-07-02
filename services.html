@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services — Johnson Creative</title>
+<meta name="description" content="Social media, video editing, podcasts, email marketing and websites — creative marketing services for traders, trading firms, and small businesses.">
+<link rel="icon" type="image/png" href="logo_bull.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0d0d0d;
+    --ink2:#15151a;
+    --panel:#17171d;
+    --line:#2b2b2b;
+    --gold:#c79d4a;
+    --gold-soft:#d8b56a;
+    --cream:#e8e1cf;
+    --text:#e9e6df;
+    --muted:#a39e93;
+    --white:#f6f6f6;
+    --max:1160px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Montserrat',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    color:var(--text);background:var(--ink);line-height:1.65;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  .gold{color:var(--gold)}
+  .eyebrow{font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
+  .btn{display:inline-block;padding:14px 28px;border-radius:6px;font-weight:600;font-size:14px;
+    letter-spacing:.5px;text-transform:uppercase;transition:.2s ease;cursor:pointer;border:1px solid transparent}
+  .btn-primary{background:var(--gold);color:#1a1206}
+  .btn-primary:hover{background:var(--gold-soft);transform:translateY(-2px)}
+  .btn-ghost{border-color:var(--gold);color:var(--gold);background:transparent}
+  .btn-ghost:hover{background:rgba(199,157,74,.12)}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:60;background:rgba(13,13,13,.82);
+    backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand img{height:40px;width:auto;display:block}
+  .brand .name{font-weight:700;font-size:17px;letter-spacing:3px;color:var(--white);line-height:1}
+  .brand .name small{display:block;font-size:8.5px;letter-spacing:2px;color:var(--gold);font-weight:500;margin-top:3px}
+  .nav-links{display:flex;gap:32px;align-items:center}
+  .nav-links a{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-weight:500}
+  .nav-links a:hover,.nav-links a.active{color:var(--gold)}
+  @media(max-width:820px){.nav-links{display:none}.brand .name{font-size:15px}}
+
+  /* Page hero */
+  .page-hero{position:relative;text-align:center;padding:80px 0 64px;
+    background:radial-gradient(900px 460px at 50% -14%,rgba(199,157,74,.13),transparent 70%),var(--ink);
+    border-bottom:1px solid var(--line)}
+  .page-hero h1{font-size:40px;line-height:1.12;font-weight:800;color:var(--white);letter-spacing:-.6px;margin-top:14px}
+  .page-hero h1 em{font-style:normal;color:var(--gold)}
+  .page-hero p.lead{font-size:18px;color:var(--muted);margin:20px auto 0;max-width:640px}
+  @media(max-width:680px){.page-hero h1{font-size:27px}.page-hero p.lead{font-size:16px}}
+
+  /* Service rows */
+  section.block{padding:72px 0}
+  .block.alt{background:var(--ink2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .svc{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  @media(max-width:880px){.svc{grid-template-columns:1fr;gap:26px}}
+  .svc .ico{height:56px;min-width:56px;width:max-content;border-radius:12px;background:rgba(199,157,74,.10);
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:0 15px;margin-bottom:18px;color:var(--gold)}
+  .svc .ico svg{width:28px;height:28px;display:block;fill:currentColor}
+  .svc h2{font-size:27px;font-weight:700;color:var(--white);letter-spacing:-.2px;margin-bottom:12px}
+  .svc p{color:var(--muted);font-size:16px}
+  .svc .stat-line{margin-top:14px;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:600}
+  .svc ul{list-style:none;display:flex;flex-direction:column;gap:12px;
+    background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:30px 32px}
+  .svc li{padding-left:24px;position:relative;color:var(--muted);font-size:15px}
+  .svc li::before{content:"";position:absolute;left:0;top:10px;width:7px;height:7px;
+    border-radius:50%;background:var(--gold)}
+  .svc li strong{color:var(--text);font-weight:600}
+
+  /* CTA band */
+  .cta-band{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);
+    background:linear-gradient(120deg,#11110d,#1c160a);padding:60px 40px;text-align:center;margin:70px 0}
+  .cta-band h2{font-size:30px;color:var(--white);font-weight:700;letter-spacing:-.2px}
+  .cta-band p{color:var(--muted);margin:14px auto 28px;max-width:540px;font-size:17px}
+  .cta-band .row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+  /* Footer */
+  footer{border-top:1px solid var(--line);padding:54px 0 40px;background:var(--ink)}
+  .foot{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+  .foot .brand img{height:46px}
+  .foot-col h5{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  .foot-col a,.foot-col p{display:block;color:var(--muted);font-size:14px;margin-bottom:9px}
+  .foot-col a:hover{color:var(--gold)}
+  .x-link{display:inline-flex;align-items:center;gap:8px;color:var(--white);font-weight:600}
+  .x-link svg{width:16px;height:16px}
+  .copyright{border-top:1px solid var(--line);margin-top:40px;padding-top:24px;
+    color:var(--muted);font-size:13px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="index.html">
+      <img src="logo_bull.png" alt="Johnson Creative bull logo">
+      <span class="name">JOHNSON CREATIVE<small>CREATIVE POWER FOR THE FINANCIAL MARKET</small></span>
+    </a>
+    <nav class="nav-links">
+      <a href="services.html" class="active">Services</a>
+      <a href="case-studies.html">Work</a>
+      <a href="index.html#who">Who we help</a>
+      <a href="index.html#why">Why us</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <a class="btn btn-primary" href="index.html#contact">Get in touch</a>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">Services</span>
+    <h1>Five things, <em>done properly</em>.</h1>
+    <p class="lead">Pick one or let us run the lot — clear pricing, plain English, no jargon. Every service is built on 15+ years of creative advertising and a specialism in the financial market.</p>
+  </div>
+</section>
+
+<!-- SOCIAL MEDIA -->
+<section class="block" id="social">
+  <div class="wrap">
+    <div class="svc">
+      <div>
+        <div class="ico">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.11-2.12C19.52 3.5 12 3.5 12 3.5s-7.52 0-9.39.58A3 3 0 0 0 .5 6.2 31.2 31.2 0 0 0 0 12a31.2 31.2 0 0 0 .5 5.8 3 3 0 0 0 2.11 2.12C4.48 20.5 12 20.5 12 20.5s7.52 0 9.39-.58A3 3 0 0 0 23.5 17.8 31.2 31.2 0 0 0 24 12a31.2 31.2 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6z"/></svg>
+        </div>
+        <h2>Social media</h2>
+        <p>Channel growth on X and YouTube — the platforms that move the trading world. We build authority content that earns followers and trust, then turn that attention into clients.</p>
+        <div class="stat-line">83k fans at $0.21 each · 9M reached</div>
+      </div>
+      <ul>
+        <li><strong>Strategy &amp; positioning</strong> — a voice that stands out in fintwit, not another echo</li>
+        <li><strong>Daily content</strong> — posts, threads and clips, planned and produced for you</li>
+        <li><strong>Community growth</strong> — followers who actually convert, not vanity numbers</li>
+        <li><strong>Reporting</strong> — what worked, what didn't, in plain English</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO EDITING -->
+<section class="block alt" id="video">
+  <div class="wrap">
+    <div class="svc">
+      <div>
+        <div class="ico">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm6 3.5v7l6-3.5z"/></svg>
+        </div>
+        <h2>Video editing</h2>
+        <p>Short and long-form edits that hook fast and cut to convert. From weekly YouTube series to short-form clips that travel across X, TikTok and Reels.</p>
+        <div class="stat-line">45M+ shares · 150+ funded accounts driven</div>
+      </div>
+      <ul>
+        <li><strong>Short-form clips</strong> — hooks in the first two seconds, captions built in</li>
+        <li><strong>Long-form YouTube</strong> — pacing, graphics and retention editing</li>
+        <li><strong>Repurposing</strong> — one recording becomes a week of content</li>
+        <li><strong>Brand consistency</strong> — templates, lower-thirds and intros that look yours</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PODCASTS -->
+<section class="block" id="podcasts">
+  <div class="wrap">
+    <div class="svc">
+      <div>
+        <div class="ico">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 14a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v5a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11z"/></svg>
+        </div>
+        <h2>Podcasts</h2>
+        <p>End-to-end podcast production — concept, recording workflow, editing, publishing and promotion. We've produced 200+ episodes with over 10 million views.</p>
+        <div class="stat-line">200+ episodes · 10M+ views</div>
+      </div>
+      <ul>
+        <li><strong>Full production</strong> — from raw recording to published episode</li>
+        <li><strong>Audio &amp; video</strong> — one session, every format</li>
+        <li><strong>Clips &amp; promotion</strong> — every episode becomes social content</li>
+        <li><strong>Growth</strong> — titles, thumbnails and distribution that pull new listeners</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- EMAIL MARKETING -->
+<section class="block alt" id="email">
+  <div class="wrap">
+    <div class="svc">
+      <div>
+        <div class="ico">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6zm2.4 0L12 11.5 19.6 6z"/></svg>
+        </div>
+        <h2>Email marketing</h2>
+        <p>Newsletters that keep lists warm and turn readers into clients. We've run a daily trader newsletter reaching 200k inboxes with a 32% open rate — shipped before 8AM, every day.</p>
+        <div class="stat-line">200k reach · 32% open · 8–10× event registrations</div>
+      </div>
+      <ul>
+        <li><strong>Newsletters</strong> — daily or weekly, written and shipped for you</li>
+        <li><strong>Nurture sequences</strong> — from first subscribe to first purchase</li>
+        <li><strong>Event &amp; launch emails</strong> — proven to multiply registrations</li>
+        <li><strong>List health</strong> — deliverability, segmentation and clean data</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- WEBSITES -->
+<section class="block" id="websites">
+  <div class="wrap">
+    <div class="svc">
+      <div>
+        <div class="ico">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.9 6h-2.6a15.7 15.7 0 0 0-1.3-3.4A8 8 0 0 1 18.9 8zM12 4c.8 1.1 1.5 2.5 1.9 4h-3.8c.4-1.5 1.1-2.9 1.9-4zM4.3 14a8 8 0 0 1 0-4h3a17.6 17.6 0 0 0 0 4zm.8 2h2.6c.3 1.2.8 2.4 1.3 3.4A8 8 0 0 1 5.1 16zm2.6-8H5.1a8 8 0 0 1 3.9-3.4A15.7 15.7 0 0 0 7.7 8zM12 20c-.8-1.1-1.5-2.5-1.9-4h3.8c-.4 1.5-1.1 2.9-1.9 4zm2.3-6H9.7a15.5 15.5 0 0 1 0-4h4.6a15.5 15.5 0 0 1 0 4zm.6 5.4c.5-1 1-2.2 1.3-3.4h2.6a8 8 0 0 1-3.9 3.4zM16.7 14a17.6 17.6 0 0 0 0-4h3a8 8 0 0 1 0 4z"/></svg>
+        </div>
+        <h2>Websites</h2>
+        <p>Fast, mobile-first sites built to convert, not just look pretty. Clear messaging, clean design, and a structure that turns visitors into enquiries.</p>
+        <div class="stat-line">Built to convert · Mobile-first · Fixed price</div>
+      </div>
+      <ul>
+        <li><strong>Design &amp; build</strong> — from brand to live site, one point of contact</li>
+        <li><strong>Copy that sells</strong> — plain English, written for your audience</li>
+        <li><strong>Speed &amp; SEO basics</strong> — fast loads, found on search</li>
+        <li><strong>Ongoing care</strong> — updates and changes without the agency runaround</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="wrap" id="contact">
+  <div class="cta-band">
+    <span class="eyebrow">Let's talk</span>
+    <h2>Not sure which one you need?</h2>
+    <p>Tell us about your business and we'll come back with a simple plan and a fixed price. No pressure, no jargon.</p>
+    <div class="row">
+      <a class="btn btn-primary" href="mailto:stephenjohnson2@hotmail.co.uk?subject=Marketing%20enquiry%20%E2%80%94%20Johnson%20Creative">Email us</a>
+      <a class="btn btn-ghost" href="https://x.com/jonk87" target="_blank" rel="noopener">DM on X</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="foot-col" style="max-width:300px">
+        <a class="brand" href="index.html">
+          <img src="logo_bull.png" alt="Johnson Creative bull logo">
+        </a>
+        <p style="margin-top:16px">Creative power for the financial market. Marketing for traders, trading firms, and small businesses.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Explore</h5>
+        <a href="services.html">Services</a>
+        <a href="case-studies.html">Work</a>
+        <a href="index.html#who">Who we help</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <div class="foot-col">
+        <h5>Connect</h5>
+        <a class="x-link" href="https://x.com/jonk87" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          @jonk87
+        </a>
+        <a href="mailto:stephenjohnson2@hotmail.co.uk">Email us</a>
+      </div>
+    </div>
+    <div class="copyright">
+      <span>© <span id="yr"></span> Johnson Creative. All rights reserved.</span>
+      <span class="reg">Registered in Estonia &amp; Brazil · 15+ years' experience</span>
+    </div>
+  </div>
+</footer>
+
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>
