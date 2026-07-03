@@ -194,12 +194,16 @@
     box-shadow:0 24px 60px rgba(0,0,0,.6)}
   .kdemo.on{opacity:1}
   .kdemo iframe{width:100%;height:100%;border:0}
-  .k-more{position:absolute;left:50%;bottom:74px;transform:translateX(-50%) translateY(10px);
-    background:var(--gold);color:#1a1206;font-weight:700;font-size:13px;letter-spacing:1.5px;
-    text-transform:uppercase;padding:13px 28px;border-radius:6px;opacity:0;transition:.4s ease;
-    z-index:6;pointer-events:none;box-shadow:0 12px 34px rgba(0,0,0,.55);white-space:nowrap}
-  .k-more:hover{background:var(--gold-soft)}
-  .k-more.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
+  .kdemo .k-catch{position:absolute;inset:0;z-index:7;cursor:pointer}
+  .kdemo .k-x{position:absolute;top:10px;right:10px;z-index:8;width:36px;height:36px;border-radius:50%;
+    background:rgba(13,13,13,.85);border:1px solid var(--line);color:var(--gold);
+    display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;transition:.2s}
+  .kdemo .k-x:hover{border-color:var(--gold);background:rgba(199,157,74,.15)}
+  .kvid-grid.dimmed .kvid{filter:grayscale(.75) brightness(.5);transition:filter .6s ease}
+  .k-overbanner{position:absolute;inset:0;z-index:6;display:flex;align-items:center;justify-content:center;
+    opacity:0;transition:.5s ease;pointer-events:none}
+  .k-overbanner.show{opacity:1}
+  .k-overbanner .btn{pointer-events:auto;box-shadow:0 14px 40px rgba(0,0,0,.6)}
   @media(max-width:460px){.kvid-grid{grid-template-columns:1fr}}
   .kvid{background:#0f0f13;border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:.2s;display:block}
   .kvid:hover{border-color:var(--gold);transform:translateY(-3px)}
@@ -293,13 +297,13 @@
   .intro-candles svg{height:100%;width:auto;display:block}
   @keyframes jc-rise{from{transform:scaleY(0);opacity:0}to{transform:scaleY(1);opacity:1}}
   .intro-candles rect,.intro-candles line{transform-box:fill-box;transform-origin:50% 100%;
-    transform:scaleY(0);opacity:0;animation:jc-rise .5s cubic-bezier(.2,.8,.3,1) forwards}
-  .intro-candles .c1 *{animation-delay:1.75s}
-  .intro-candles .c2 *{animation-delay:2.05s}
-  .intro-candles .c3 *{animation-delay:2.35s}
-  .intro-candles .c4 *{animation-delay:2.65s}
+    transform:scaleY(0);opacity:0;animation:jc-rise .32s cubic-bezier(.2,.8,.3,1) forwards}
+  .intro-candles .c1 *{animation-delay:1.5s}
+  .intro-candles .c2 *{animation-delay:1.62s}
+  .intro-candles .c3 *{animation-delay:1.74s}
+  .intro-candles .c4 *{animation-delay:1.86s}
   .intro .sub{margin-top:26px;font-size:15px;letter-spacing:7px;text-transform:uppercase;
-    color:var(--gold);font-weight:700;animation:jc-up .6s ease 3s both}
+    color:var(--gold);font-weight:700;animation:jc-up .45s ease 2.05s both}
   .intro.done{opacity:0;transform:translateY(-8%) scale(.965);
     transition:.85s cubic-bezier(.6,0,.3,1);pointer-events:none}
   body.lock{overflow:hidden}
@@ -855,7 +859,7 @@ document.getElementById('yr').textContent=new Date().getFullYear();
     sessionStorage.setItem('jcIntro','1');
     setTimeout(()=>intro.remove(),900);
   };
-  setTimeout(end,4200);
+  setTimeout(end,3000);
   intro.addEventListener('click',end);
 })();
 // case-study banner carousel
@@ -894,67 +898,93 @@ document.getElementById('yr').textContent=new Date().getFullYear();
   document.getElementById('cbPrev').addEventListener('click',()=>window.jcCancelDemo());
   document.getElementById('cbNext').addEventListener('click',()=>window.jcCancelDemo());
 })();
-// auto-demo: first episode card lights up, opens, plays first 20s (sound on when the browser allows), then closes
+// on-site episode player: cards play inside the site; click video to close; auto-demo plays first 20s
 (function(){
   const grid=document.querySelector('.kvid-grid');
-  if(!grid||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  if(!grid)return;
   const first=grid.querySelector('.kvid');
-  let cancelled=false,demo=null,ytp=null,stopTimer=null;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let demo=null,ytp=null,stopTimer=null,obShown=false,autoCancelled=false;
   function loadYT(cb){
     if(window.YT&&window.YT.Player)return cb();
     const s=document.createElement('script');s.src='https://www.youtube.com/iframe_api';document.head.appendChild(s);
     const prev=window.onYouTubeIframeAPIReady;
     window.onYouTubeIframeAPIReady=function(){prev&&prev();cb()};
   }
-  window.jcCancelDemo=()=>{
-    cancelled=true;
-    clearTimeout(stopTimer);
+  window.jcClearBanner=()=>{};
+  function scheduleBanner(){
+    if(obShown)return;obShown=true;
+    setTimeout(()=>{
+      grid.classList.add('dimmed');
+      const ob=document.createElement('div');
+      ob.className='k-overbanner';
+      ob.innerHTML='<a class="btn btn-primary" href="case-studies.html">See More Work →</a>';
+      grid.appendChild(ob);
+      requestAnimationFrame(()=>ob.classList.add('show'));
+      window.jcClearBanner=()=>{grid.classList.remove('dimmed');ob.remove();window.jcClearBanner=()=>{}};
+    },3000);
+  }
+  function closePlayer(showBanner){
+    clearTimeout(stopTimer);stopTimer=null;
     first.classList.remove('selected');
     if(ytp){try{ytp.destroy()}catch(_){/**/}ytp=null}
     if(demo){demo.classList.remove('on');const d=demo;demo=null;setTimeout(()=>d.remove(),500)}
-  };
-  setTimeout(()=>{
-    if(cancelled)return;
-    first.classList.add('selected');
+    if(showBanner)scheduleBanner();
+  }
+  window.jcCancelDemo=()=>{autoCancelled=true;closePlayer(false)};
+  function openPlayer(vid,limit){
+    closePlayer(false);
+    window.jcClearBanner();
+    demo=document.createElement('div');
+    demo.className='kdemo';
+    const holder=document.createElement('div');
+    demo.appendChild(holder);
+    const catchd=document.createElement('div');
+    catchd.className='k-catch';
+    catchd.addEventListener('click',()=>closePlayer(true));
+    const x=document.createElement('button');
+    x.className='k-x';x.innerHTML='✕';x.setAttribute('aria-label','Close video');
+    x.addEventListener('click',()=>closePlayer(true));
+    demo.appendChild(catchd);demo.appendChild(x);
+    grid.appendChild(demo);
+    requestAnimationFrame(()=>demo&&demo.classList.add('on'));
+    loadYT(()=>{
+      if(!demo)return;
+      ytp=new YT.Player(holder,{videoId:vid,
+        playerVars:{autoplay:1,rel:0,playsinline:1},
+        events:{
+          onReady:e=>{
+            try{e.target.unMute();e.target.setVolume(80);e.target.playVideo()}catch(_){/**/}
+            // if the browser blocks unmuted autoplay, fall back to muted
+            setTimeout(()=>{try{if(ytp&&ytp.getPlayerState()!==1){ytp.mute();ytp.playVideo()}}catch(_){/**/}},1300);
+          },
+          onStateChange:e=>{
+            if(limit&&e.data===1&&!stopTimer){stopTimer=setTimeout(()=>closePlayer(true),20000)}
+          }
+        }});
+    });
+  }
+  // any episode card opens in the on-site player — visitors never leave the site
+  document.querySelectorAll('.kvid,.kin-card').forEach(a=>{
+    a.addEventListener('click',ev=>{
+      const m=(a.getAttribute('href')||'').match(/[?&]v=([\w-]{11})/);
+      if(!m)return;
+      ev.preventDefault();
+      autoCancelled=true;
+      grid.scrollIntoView({behavior:'smooth',block:'center'});
+      openPlayer(m[1],false);
+    });
+  });
+  // unmute as soon as the visitor interacts anywhere (browsers allow sound after a user gesture)
+  document.addEventListener('pointerdown',()=>{try{if(ytp&&ytp.isMuted()){ytp.unMute();ytp.setVolume(80)}}catch(_){/**/}},true);
+  // auto-demo
+  if(!reduce){
     setTimeout(()=>{
-      if(cancelled)return;
-      demo=document.createElement('div');
-      demo.className='kdemo';
-      const holder=document.createElement('div');
-      demo.appendChild(holder);
-      const more=document.createElement('a');
-      more.className='k-more';
-      more.href='https://www.youtube.com/channel/UCLE8mxCMTM0_4RGsGvsXSng';
-      more.target='_blank';more.rel='noopener';
-      more.textContent='See more →';
-      demo.appendChild(more);
-      grid.appendChild(demo);
-      const showMore=()=>more.classList.add('show');
-      requestAnimationFrame(()=>demo&&demo.classList.add('on'));
-      loadYT(()=>{
-        if(cancelled)return;
-        ytp=new YT.Player(holder,{videoId:'pBS5vrqrUjk',
-          playerVars:{autoplay:1,rel:0,playsinline:1},
-          events:{
-            onReady:e=>{
-              try{e.target.unMute();e.target.setVolume(75);e.target.playVideo()}catch(_){/**/}
-              // if unmuted autoplay is blocked, fall back to muted so it still plays
-              setTimeout(()=>{try{if(ytp&&ytp.getPlayerState()!==1){ytp.mute();ytp.playVideo()}}catch(_){/**/}},1300);
-            },
-            onStateChange:e=>{
-              if(e.data===2)showMore(); // viewer paused it
-              if(e.data===1&&!stopTimer){
-                stopTimer=setTimeout(()=>{
-                  try{ytp&&ytp.pauseVideo()}catch(_){/**/}
-                  showMore();
-                  setTimeout(()=>{if(!cancelled)window.jcCancelDemo()},4500);
-                },20000);
-              }
-            }
-          }});
-      });
-    },1500);
-  },6500);
+      if(autoCancelled||demo)return;
+      first.classList.add('selected');
+      setTimeout(()=>{if(!autoCancelled&&!demo)openPlayer('pBS5vrqrUjk',true)},1500);
+    },6500);
+  }
 })();
 // staggered candlestick pop-in
 document.querySelectorAll('.hero-bg g > *').forEach((el,i)=>{el.style.animationDelay=(0.1+i*0.055)+'s'});
