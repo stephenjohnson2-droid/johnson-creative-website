@@ -100,6 +100,20 @@
   .copyright{border-top:1px solid var(--line);margin-top:40px;padding-top:24px;
     color:var(--muted);font-size:13px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
+  /* Page intro: candles form, then in */
+  .mini-intro{position:fixed;inset:0;z-index:100;background:var(--ink);
+    display:flex;align-items:center;justify-content:center;pointer-events:none}
+  .mini-intro svg{height:84px;width:auto}
+  @keyframes jc-rise{from{transform:scaleY(0);opacity:0}to{transform:scaleY(1);opacity:1}}
+  .mini-intro rect,.mini-intro line{transform-box:fill-box;transform-origin:50% 100%;
+    transform:scaleY(0);opacity:0;animation:jc-rise .35s cubic-bezier(.2,.8,.3,1) forwards}
+  .mini-intro .c1 *{animation-delay:.08s}
+  .mini-intro .c2 *{animation-delay:.24s}
+  .mini-intro .c3 *{animation-delay:.4s}
+  .mini-intro .c4 *{animation-delay:.56s}
+  .mini-intro.done{opacity:0;transition:.45s ease}
+  @media(prefers-reduced-motion:reduce){.mini-intro{display:none}}
+
   /* ---- Polish: motion & depth ---- */
   ::selection{background:rgba(199,157,74,.4);color:var(--white)}
   @keyframes jc-up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
@@ -140,6 +154,16 @@
 </style>
 </head>
 <body>
+
+<!-- PAGE INTRO -->
+<div class="mini-intro" id="miniIntro" aria-hidden="true">
+  <svg viewBox="0 0 230 100" xmlns="http://www.w3.org/2000/svg">
+    <g class="c1" stroke="#c79d4a" fill="#c79d4a"><line x1="25" y1="52" x2="25" y2="98" stroke-width="3"/><rect x="14" y="62" width="22" height="28" rx="2"/></g>
+    <g class="c2" stroke="#c79d4a" fill="#c79d4a"><line x1="85" y1="36" x2="85" y2="88" stroke-width="3"/><rect x="74" y="46" width="22" height="32" rx="2"/></g>
+    <g class="c3" stroke="#c79d4a" fill="#c79d4a"><line x1="145" y1="18" x2="145" y2="74" stroke-width="3"/><rect x="134" y="28" width="22" height="36" rx="2"/></g>
+    <g class="c4" stroke="#d8b56a" fill="#d8b56a"><line x1="205" y1="2" x2="205" y2="60" stroke-width="3"/><rect x="194" y="12" width="22" height="40" rx="2"/></g>
+  </svg>
+</div>
 
 <header>
   <div class="wrap nav">
@@ -327,6 +351,10 @@
 
 <script>
 document.getElementById('yr').textContent=new Date().getFullYear();
+// page intro: candles form, then reveal
+(function(){const m=document.getElementById('miniIntro');if(!m)return;
+if(matchMedia('(prefers-reduced-motion: reduce)').matches){m.remove();return}
+setTimeout(()=>{m.classList.add('done');setTimeout(()=>m.remove(),500)},1250);})();
 // mobile menu
 const mb=document.querySelector('.menu-btn'),nl=document.querySelector('.nav-links');
 if(mb&&nl){mb.addEventListener('click',()=>{const o=nl.classList.toggle('open');mb.classList.toggle('open',o);mb.setAttribute('aria-expanded',o)});
