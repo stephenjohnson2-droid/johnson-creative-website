@@ -41,6 +41,24 @@
   .btn-ghost{border-color:var(--gold);color:var(--gold);background:transparent}
   .btn-ghost:hover{background:rgba(199,157,74,.12)}
 
+  /* Top bar */
+  .topbar{background:var(--ink2);border-bottom:1px solid var(--line);padding:7px 0;
+    font-size:12px;letter-spacing:1px;color:var(--muted)}
+  .topbar .wrap{display:flex;justify-content:flex-end;align-items:center;gap:8px}
+  .topbar svg{width:14px;height:14px;fill:var(--gold)}
+  .topbar a{color:var(--gold);font-weight:600}
+  .topbar a:hover{color:var(--gold-soft)}
+
+  /* Contact form */
+  .c-form{max-width:540px;margin:0 auto;display:flex;flex-direction:column;gap:12px;text-align:left}
+  .c-form .row2{display:flex;gap:12px}
+  @media(max-width:560px){.c-form .row2{flex-direction:column}}
+  .c-form input,.c-form textarea{background:var(--panel);border:1px solid var(--line);border-radius:8px;
+    padding:13px 16px;color:var(--text);font-family:inherit;font-size:14.5px;width:100%;resize:vertical}
+  .c-form input::placeholder,.c-form textarea::placeholder{color:var(--muted)}
+  .c-form input:focus,.c-form textarea:focus{outline:none;border-color:var(--gold)}
+  .c-form button{align-self:center;margin-top:8px;cursor:pointer;border:1px solid transparent}
+
   /* Header */
   header{position:sticky;top:0;z-index:60;background:rgba(13,13,13,.82);
     backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
@@ -230,10 +248,7 @@
   /* TradeZero PRE-GAME promo — slow cinematic pan */
   .tz-photo{max-width:470px;margin:0 auto;border-radius:14px;overflow:hidden;
     border:1px solid var(--line);box-shadow:0 24px 60px rgba(0,0,0,.55);aspect-ratio:1/1}
-  .tz-photo img{width:100%;height:100%;object-fit:cover;display:block;
-    transform-origin:28% 62%;animation:tz-kb 13s ease-in-out infinite alternate}
-  @keyframes tz-kb{from{transform:scale(1)}to{transform:scale(1.28) translate(5%,-3%)}}
-  @media(prefers-reduced-motion:reduce){.tz-photo img{animation:none}}
+  .tz-photo img{width:100%;height:100%;object-fit:cover;display:block}
 
   /* TradeZero newsletter — real edition mock */
   .tz-mail{max-width:460px;margin:0 auto;border:1px solid var(--line);border-radius:14px;overflow:hidden;
@@ -472,6 +487,13 @@
     </svg>
   </div>
   <div class="sub">Johnson Creative</div>
+</div>
+
+<div class="topbar">
+  <div class="wrap">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6zm2.4 0L12 11.5 19.6 6z"/></svg>
+    <a href="mailto:bullmarketcreative@gmail.com">bullmarketcreative@gmail.com</a>
+  </div>
 </div>
 
 <header>
@@ -923,12 +945,19 @@
 <section class="wrap" id="contact">
   <div class="cta-band">
     <span class="eyebrow">Let's talk</span>
-    <h2>Ready to grow? DM for enquiries.</h2>
+    <h2>Ready to grow?</h2>
     <p>Tell us about your business and we'll come back with a simple plan and a fixed price. No pressure, no jargon.</p>
-    <div class="row">
-      <a class="btn btn-primary" href="mailto:stephenjohnson2@hotmail.co.uk?subject=Marketing%20enquiry%20%E2%80%94%20Johnson%20Creative">Email us</a>
-      <a class="btn btn-ghost" href="https://x.com/jonk87" target="_blank" rel="noopener">DM on X</a>
-    </div>
+    <form class="c-form" action="https://formsubmit.co/bullmarketcreative@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="New enquiry — Johnson Creative website">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://johnson-creative-website.onrender.com/?sent=1">
+      <div class="row2">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+      </div>
+      <textarea name="message" rows="4" placeholder="Tell us about your business" required></textarea>
+      <button class="btn btn-primary" type="submit">Send enquiry</button>
+    </form>
   </div>
 </section>
 
@@ -955,7 +984,7 @@
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
           @jonk87
         </a>
-        <a href="mailto:stephenjohnson2@hotmail.co.uk">Email us</a>
+        <a href="mailto:bullmarketcreative@gmail.com">bullmarketcreative@gmail.com</a>
       </div>
     </div>
     <div class="copyright">
