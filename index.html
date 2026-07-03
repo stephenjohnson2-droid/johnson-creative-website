@@ -250,6 +250,7 @@
     font-size:12px;font-weight:600;padding:3px 8px;border-radius:4px}
   .k-cap{color:var(--muted);font-size:12.5px;margin-top:12px}
   .k-cap strong{color:var(--gold)}
+  .kin-marquee.hide{display:none}
   .kin-marquee{overflow:hidden;margin-top:54px;padding:6px 0;
     -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
     mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
@@ -944,6 +945,9 @@ document.getElementById('yr').textContent=new Date().getFullYear();
     i=(n+slides)%slides;
     track.style.transform='translateX(-'+(i*100)+'%)';
     for(let d=0;d<slides;d++)dots[d].classList.toggle('active',d===i);
+    // the episode wall belongs to the Kinfo slide only
+    const mq=document.querySelector('.kin-marquee');
+    if(mq)mq.classList.toggle('hide',i!==0);
     window.jcOnSlide&&window.jcOnSlide(i);
   }
   // holds on the current banner — advances only on click/swipe
