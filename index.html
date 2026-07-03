@@ -228,9 +228,10 @@
     box-shadow:0 34px 90px rgba(0,0,0,.75),0 0 44px rgba(199,157,74,.4)}
   @media(prefers-reduced-motion:reduce){.st-frame.zoom{transform:none}}
   /* Aikido website + lead-gen mock */
-  .ak-wrap{position:relative;max-width:480px;margin:0 auto}
+  .ak-wrap{position:relative;max-width:560px;margin:0 auto}
   .ak-browser{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#0e1626;
     box-shadow:0 24px 60px rgba(0,0,0,.55)}
+  .ak-browser video{width:100%;display:block}
   .ak-bar{display:flex;align-items:center;gap:6px;background:#1a2333;padding:10px 14px}
   .ak-bar span{width:10px;height:10px;border-radius:50%;background:#3a465c}
   .ak-bar span:first-child{background:#c04545}
@@ -253,7 +254,7 @@
     color:#8fa0bd;font-size:11px;padding:8px 12px}
   .ak-btn{margin-top:12px;background:#c04545;color:#fff;border:0;border-radius:20px;
     font-size:11px;font-weight:700;letter-spacing:1px;padding:9px 20px;font-family:inherit}
-  .ak-flow{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:56px;
+  .ak-flow{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:22px;
     font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);
     font-weight:600;flex-wrap:wrap}
   .ak-flow b{color:var(--gold);font-weight:700}
@@ -502,7 +503,6 @@
 <section class="block" id="kinfo" style="padding-top:64px">
   <div class="wrap">
     <div class="section-head" style="margin-bottom:36px">
-      <span class="eyebrow">Case studies</span>
       <h2>Real stories. Real <span class="gold">results</span>.</h2>
     </div>
     <div class="cb-wrap" id="cbWrap">
@@ -533,9 +533,6 @@
         <p class="k-note">Content recorded and produced in-house.</p>
         <div class="k-cta" style="align-items:center">
           <a class="btn btn-primary" href="#contact">Book a free call</a>
-          <a class="k-watch" href="https://www.youtube.com/channel/UCLE8mxCMTM0_4RGsGvsXSng" target="_blank" rel="noopener">Watch &amp; listen on
-            <svg viewBox="0 0 90 20" aria-hidden="true"><rect x="0" y="0" width="28" height="20" rx="5" fill="#FF0000"/><path d="M11 5.5l8 4.5-8 4.5z" fill="#fff"/><text x="33" y="15" fill="#f6f6f6" font-family="Montserrat,Arial,sans-serif" font-size="13" font-weight="700">YouTube</text></svg>
-          </a>
         </div>
       </div>
       <div class="kvid-grid">
@@ -628,17 +625,7 @@
         <div class="ak-wrap">
           <div class="ak-browser">
             <div class="ak-bar"><span></span><span></span><span></span><div class="ak-url">aikidotradingmethod.com</div></div>
-            <div class="ak-hero">
-              <div class="ak-logo">AIKIDO<small>TRADING METHOD</small></div>
-              <h4>The Small-Cap Trading Community</h4>
-              <p>Led by Adam Gefvert</p>
-              <span class="ak-pill">$8M verified profits on Kinfo →</span>
-            </div>
-          </div>
-          <div class="ak-form" aria-hidden="true">
-            <h5>Unlock Your Free 30-Minute Introduction to the Aikido Trading Method</h5>
-            <div class="ak-fields"><span>Name</span><span>Email</span></div>
-            <button class="ak-btn" tabindex="-1">GET IT NOW</button>
+            <video id="akVid" src="aikido-walkthrough.mp4" autoplay muted loop playsinline preload="auto" aria-label="Walkthrough of aikidotradingmethod.com — from landing page to guide sign-up"></video>
           </div>
         </div>
         <div class="ak-flow"><span>Traffic</span><span class="fa">→</span><span>Website</span><span class="fa">→</span><span>Free guide</span><span class="fa">→</span><span>Email list</span><span class="fa">→</span><b>Member</b></div>
