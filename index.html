@@ -227,6 +227,14 @@
   .st-frame.zoom{transform:scale(1.16) rotate(-1.5deg);border-color:var(--gold);
     box-shadow:0 34px 90px rgba(0,0,0,.75),0 0 44px rgba(199,157,74,.4)}
   @media(prefers-reduced-motion:reduce){.st-frame.zoom{transform:none}}
+  /* TradeZero PRE-GAME promo — slow cinematic pan */
+  .tz-photo{max-width:470px;margin:0 auto;border-radius:14px;overflow:hidden;
+    border:1px solid var(--line);box-shadow:0 24px 60px rgba(0,0,0,.55);aspect-ratio:1/1}
+  .tz-photo img{width:100%;height:100%;object-fit:cover;display:block;
+    transform-origin:28% 62%;animation:tz-kb 13s ease-in-out infinite alternate}
+  @keyframes tz-kb{from{transform:scale(1)}to{transform:scale(1.28) translate(5%,-3%)}}
+  @media(prefers-reduced-motion:reduce){.tz-photo img{animation:none}}
+
   /* TradeZero newsletter — real edition mock */
   .tz-mail{max-width:460px;margin:0 auto;border:1px solid var(--line);border-radius:14px;overflow:hidden;
     background:#f4f4f2;color:#17181c;box-shadow:0 24px 60px rgba(0,0,0,.55);
@@ -649,8 +657,8 @@
     <div class="kinfo">
       <div>
         <span class="eyebrow">Case study — TradeZero</span>
-        <h2 class="k-title">The daily newsletter <span class="gold">200,000 traders</span> wake up to</h2>
-        <p class="k-lead">Index moves, biggest movers and a daily theme — written by a trader, approved and shipped before 8AM, every single day. Opened up to convert non-customers too.</p>
+        <h2 class="k-title">PRE-GAME — the newsletter <span class="gold">200,000 traders</span> wake up to</h2>
+        <p class="k-lead">Index moves, biggest movers and a daily theme — written by a trader, approved and delivered before every market open. Opened up to convert non-customers too.</p>
         <div class="kstats">
           <div><div class="num">200k+</div><div class="lab">Audience</div></div>
           <div><div class="num">32%</div><div class="lab">Avg open rate</div></div>
@@ -658,23 +666,8 @@
         </div>
       </div>
       <div>
-        <div class="tz-mail" aria-label="TradeZero daily newsletter — real edition">
-          <div class="tz-top"><span></span><span></span><span></span>
-            <div class="tz-sub">Floor Lines — Welcome to the NVIDIA Show</div>
-          </div>
-          <div class="tz-mast">
-            <div class="fl">FLOOR LINES</div>
-            <div class="dt">Daily edition · Before the bell</div>
-          </div>
-          <div class="tz-head">WELCOME TO THE NVIDIA SHOW</div>
-          <div class="tz-idx">
-            <div><b>DJIA</b><span>39,069.59 <span class="up">▲</span></span></div>
-            <div><b>Nasdaq Comp</b><span>16,920.79 <span class="up">▲ 1.10%</span></span></div>
-            <div><b>S&amp;P 500</b><span>5,304.72 <span class="up">▲ 0.70%</span></span></div>
-          </div>
-          <div class="tz-secs">
-            <span>The Warm Up</span><span>Biggest Movers</span><span>Daily Theme</span><span>Live Education</span>
-          </div>
+        <div class="tz-photo">
+          <img src="tz-pregame.webp" alt="TradeZero PRE-GAME newsletter — Tune in to the pulse of the market" loading="lazy">
         </div>
       </div>
     </div>
