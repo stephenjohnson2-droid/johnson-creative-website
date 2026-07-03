@@ -219,6 +219,14 @@
   .k-overbanner .arr.l{animation-name:k-flickl}
   @keyframes k-flickr{0%,100%{transform:translateX(0);opacity:1}50%{transform:translateX(10px);opacity:.55}}
   @keyframes k-flickl{0%,100%{transform:translateX(0);opacity:1}50%{transform:translateX(-10px);opacity:.55}}
+  /* SageTrader launch video */
+  .st-frame{position:relative;width:min(300px,82%);margin:0 auto;border-radius:18px;overflow:hidden;
+    border:1px solid var(--line);background:#000;box-shadow:0 24px 60px rgba(0,0,0,.55);cursor:pointer;
+    transition:transform .45s cubic-bezier(.2,.8,.3,1),box-shadow .45s ease,border-color .45s ease}
+  .st-frame video{width:100%;display:block}
+  .st-frame.zoom{transform:scale(1.16) rotate(-1.5deg);border-color:var(--gold);
+    box-shadow:0 34px 90px rgba(0,0,0,.75),0 0 44px rgba(199,157,74,.4)}
+  @media(prefers-reduced-motion:reduce){.st-frame.zoom{transform:none}}
   .cb-nav.attn{border-color:var(--gold);background:rgba(199,157,74,.15);
     box-shadow:0 0 0 7px rgba(199,157,74,.12);animation:k-navpulse .8s ease-in-out infinite}
   @keyframes k-navpulse{0%,100%{transform:translateY(-50%) scale(1)}50%{transform:translateY(-50%) scale(1.18)}}
@@ -519,7 +527,44 @@
     </div>
     </div>
 
-    <!-- Banner 2: TradeZero newsletter -->
+    <!-- Banner 2: SageTrader brand launch -->
+    <div class="cb-slide">
+    <div class="kinfo">
+      <div>
+        <span class="eyebrow">Case study — SageTrader</span>
+        <h2 class="k-title">Launching brands with fresh, <span class="gold">original content</span></h2>
+        <div class="k-rule"></div>
+        <p class="k-lead">Using AI-powered creative workflows, we bring brands to life in hours not weeks — at a fraction of the traditional cost.</p>
+        <div class="kstats">
+          <div>
+            <div class="ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1v.2h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2zM9 19h6v1a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z"/></svg></div>
+            <div class="num">Concept</div><div class="lab">Ideas that capture attention</div>
+          </div>
+          <div>
+            <div class="ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.2 5.3L20 9.5l-5.8 2.2L12 17l-2.2-5.3L4 9.5l5.8-2.2zM19 15l1.2 2.8L23 19l-2.8 1.2L19 23l-1.2-2.8L15 19l2.8-1.2z"/></svg></div>
+            <div class="num">Create</div><div class="lab">AI characters, stories &amp; visuals</div>
+          </div>
+          <div>
+            <div class="ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2s6 2 6 10c0 3.5-1.6 6-3 7.5L13 22h-2l-3-2.5C6.6 18 5 15.5 5 12 5 4 11 2 11 2h2zm-1 7a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg></div>
+            <div class="num">Launch</div><div class="lab">Delivered in hours, not weeks</div>
+          </div>
+        </div>
+        <p class="k-note">Character, story and edit produced in-house.</p>
+        <div class="k-cta">
+          <a class="btn btn-primary" href="#contact">Book a free call</a>
+          <a class="btn btn-ghost" href="case-studies.html">Full case study</a>
+        </div>
+      </div>
+      <div>
+        <div class="st-frame" id="stFrame">
+          <video id="stVid" src="sagetrader-launch.mp4" autoplay muted loop playsinline preload="auto" aria-label="SageTrader brand launch video"></video>
+          <button class="k-sound"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg> Click for sound</button>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- Banner 3: TradeZero newsletter -->
     <div class="cb-slide">
     <div class="kinfo">
       <div>
@@ -1015,8 +1060,31 @@ document.getElementById('yr').textContent=new Date().getFullYear();
   // unmute as soon as the visitor interacts anywhere (browsers allow sound after a user gesture)
   document.addEventListener('pointerdown',()=>{
     try{if(ytp&&ytp.isMuted()){ytp.unMute();ytp.setVolume(80)}}catch(_){/**/}
-    document.querySelectorAll('.k-sound.show').forEach(b=>b.classList.remove('show'));
+    document.querySelectorAll('.kdemo .k-sound.show').forEach(b=>b.classList.remove('show'));
   },true);
+  // SageTrader launch video: sound toggle + zero-slam pop-out
+  (function(){
+    const v=document.getElementById('stVid');
+    if(!v)return;
+    const frame=document.getElementById('stFrame');
+    const snd=frame.querySelector('.k-sound');
+    v.muted=true;
+    const tryPlay=()=>{const p=v.play();p&&p.catch(()=>{/**/})};
+    tryPlay();
+    setTimeout(()=>{if(v.muted)snd.classList.add('show')},900);
+    const setBadge=()=>{v.muted?snd.classList.add('show'):snd.classList.remove('show')};
+    snd.addEventListener('click',e=>{e.stopPropagation();v.muted=false;setBadge();if(v.paused)tryPlay()});
+    frame.addEventListener('click',()=>{v.muted=!v.muted;setBadge();if(v.paused)tryPlay()});
+    let popped=false;
+    v.addEventListener('timeupdate',()=>{
+      if(!popped&&v.currentTime>4.75&&v.currentTime<6.5){
+        popped=true;
+        frame.classList.add('zoom');
+        setTimeout(()=>frame.classList.remove('zoom'),1100);
+      }
+      if(v.currentTime<1)popped=false; // re-arm each loop
+    });
+  })();
   // auto-demo
   if(!reduce){
     setTimeout(()=>{
