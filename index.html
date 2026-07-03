@@ -215,12 +215,12 @@
   .k-overbanner.show{opacity:1}
   .k-overbanner .btn{pointer-events:auto;box-shadow:0 14px 40px rgba(0,0,0,.6)}
   .k-overbanner .arr{color:var(--gold);font-size:40px;font-weight:800;line-height:1;
-    text-shadow:0 4px 18px rgba(0,0,0,.7);animation:k-flickr 1s ease-in-out infinite}
+    text-shadow:0 4px 18px rgba(0,0,0,.7);animation:k-flickr .65s ease-in-out infinite}
   .k-overbanner .arr.l{animation-name:k-flickl}
   @keyframes k-flickr{0%,100%{transform:translateX(0);opacity:1}50%{transform:translateX(10px);opacity:.55}}
   @keyframes k-flickl{0%,100%{transform:translateX(0);opacity:1}50%{transform:translateX(-10px);opacity:.55}}
   .cb-nav.attn{border-color:var(--gold);background:rgba(199,157,74,.15);
-    box-shadow:0 0 0 7px rgba(199,157,74,.12);animation:k-navpulse 1.1s ease-in-out infinite}
+    box-shadow:0 0 0 7px rgba(199,157,74,.12);animation:k-navpulse .8s ease-in-out infinite}
   @keyframes k-navpulse{0%,100%{transform:translateY(-50%) scale(1)}50%{transform:translateY(-50%) scale(1.18)}}
   @media(max-width:460px){.kvid-grid{grid-template-columns:1fr}}
   .kvid{background:#0f0f13;border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:.2s;display:block}
@@ -949,7 +949,7 @@ document.getElementById('yr').textContent=new Date().getFullYear();
         obShown=false;
         window.jcClearBanner=()=>{};
       };
-    },4000);
+    },2000);
   }
   function closePlayer(showBanner){
     clearTimeout(stopTimer);stopTimer=null;
