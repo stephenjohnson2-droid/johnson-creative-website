@@ -207,11 +207,21 @@
     background:rgba(13,13,13,.85);border:1px solid var(--line);color:var(--gold);
     display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;transition:.2s}
   .kdemo .k-x:hover{border-color:var(--gold);background:rgba(199,157,74,.15)}
-  .kvid-grid.dimmed .kvid{filter:grayscale(.75) brightness(.5);transition:filter .6s ease}
+  .kinfo{position:relative}
+  .kinfo.dimmed>*{filter:grayscale(.75) brightness(.45);transition:filter .7s ease}
+  .kinfo.dimmed>.k-overbanner{filter:none}
   .k-overbanner{position:absolute;inset:0;z-index:6;display:flex;align-items:center;justify-content:center;
-    opacity:0;transition:.5s ease;pointer-events:none}
+    gap:20px;opacity:0;transition:.5s ease;pointer-events:none}
   .k-overbanner.show{opacity:1}
   .k-overbanner .btn{pointer-events:auto;box-shadow:0 14px 40px rgba(0,0,0,.6)}
+  .k-overbanner .arr{color:var(--gold);font-size:40px;font-weight:800;line-height:1;
+    text-shadow:0 4px 18px rgba(0,0,0,.7);animation:k-flickr 1s ease-in-out infinite}
+  .k-overbanner .arr.l{animation-name:k-flickl}
+  @keyframes k-flickr{0%,100%{transform:translateX(0);opacity:1}50%{transform:translateX(10px);opacity:.55}}
+  @keyframes k-flickl{0%,100%{transform:translateX(0);opacity:1}50%{transform:translateX(-10px);opacity:.55}}
+  .cb-nav.attn{border-color:var(--gold);background:rgba(199,157,74,.15);
+    box-shadow:0 0 0 7px rgba(199,157,74,.12);animation:k-navpulse 1.1s ease-in-out infinite}
+  @keyframes k-navpulse{0%,100%{transform:translateY(-50%) scale(1)}50%{transform:translateY(-50%) scale(1.18)}}
   @media(max-width:460px){.kvid-grid{grid-template-columns:1fr}}
   .kvid{background:#0f0f13;border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:.2s;display:block}
   .kvid:hover{border-color:var(--gold);transform:translateY(-3px)}
@@ -920,17 +930,26 @@ document.getElementById('yr').textContent=new Date().getFullYear();
     window.onYouTubeIframeAPIReady=function(){prev&&prev();cb()};
   }
   window.jcClearBanner=()=>{};
+  const slide=grid.closest('.kinfo')||grid;
   function scheduleBanner(){
     if(obShown)return;obShown=true;
     setTimeout(()=>{
-      grid.classList.add('dimmed');
+      if(demo){obShown=false;return} // a video is playing — never show over it
+      slide.classList.add('dimmed');
       const ob=document.createElement('div');
       ob.className='k-overbanner';
-      ob.innerHTML='<a class="btn btn-primary" href="case-studies.html">See More Work →</a>';
-      grid.appendChild(ob);
+      ob.innerHTML='<span class="arr l" aria-hidden="true">‹</span><a class="btn btn-primary" href="case-studies.html">See More Work</a><span class="arr" aria-hidden="true">›</span>';
+      slide.appendChild(ob);
+      const pv=document.getElementById('cbPrev'),nx=document.getElementById('cbNext');
+      pv&&pv.classList.add('attn');nx&&nx.classList.add('attn');
       requestAnimationFrame(()=>ob.classList.add('show'));
-      window.jcClearBanner=()=>{grid.classList.remove('dimmed');ob.remove();window.jcClearBanner=()=>{}};
-    },3000);
+      window.jcClearBanner=()=>{
+        slide.classList.remove('dimmed');ob.remove();
+        pv&&pv.classList.remove('attn');nx&&nx.classList.remove('attn');
+        obShown=false;
+        window.jcClearBanner=()=>{};
+      };
+    },4000);
   }
   function closePlayer(showBanner){
     clearTimeout(stopTimer);stopTimer=null;
@@ -939,7 +958,7 @@ document.getElementById('yr').textContent=new Date().getFullYear();
     if(demo){demo.classList.remove('on');const d=demo;demo=null;setTimeout(()=>d.remove(),500)}
     if(showBanner)scheduleBanner();
   }
-  window.jcCancelDemo=()=>{autoCancelled=true;closePlayer(false)};
+  window.jcCancelDemo=()=>{autoCancelled=true;closePlayer(false);window.jcClearBanner()};
   function openPlayer(vid,limit){
     closePlayer(false);
     window.jcClearBanner();
