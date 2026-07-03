@@ -944,6 +944,7 @@ document.getElementById('yr').textContent=new Date().getFullYear();
     i=(n+slides)%slides;
     track.style.transform='translateX(-'+(i*100)+'%)';
     for(let d=0;d<slides;d++)dots[d].classList.toggle('active',d===i);
+    window.jcOnSlide&&window.jcOnSlide(i);
   }
   // holds on the current banner — advances only on click/swipe
   document.getElementById('cbPrev').addEventListener('click',()=>go(i-1));
@@ -1084,6 +1085,18 @@ document.getElementById('yr').textContent=new Date().getFullYear();
       }
       if(v.currentTime<1)popped=false; // re-arm each loop
     });
+    // arriving on this slide (via arrow/dot click = user gesture): restart from 0 with sound on
+    const stSlide=frame.closest('.cb-slide');
+    const trk=document.getElementById('cbTrack');
+    const myIdx=trk&&stSlide?Array.prototype.indexOf.call(trk.children,stSlide):-1;
+    window.jcOnSlide=idx=>{
+      if(idx===myIdx){
+        try{v.currentTime=0}catch(_){/**/}
+        v.muted=false;setBadge();tryPlay();
+      }else{
+        v.muted=true;setBadge();
+      }
+    };
   })();
   // auto-demo
   if(!reduce){
