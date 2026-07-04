@@ -268,17 +268,6 @@
     display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;transition:.2s}
   .kdemo .k-x:hover{border-color:var(--gold);background:rgba(199,157,74,.15)}
   .kinfo{position:relative}
-  .kinfo.dimmed>*{filter:grayscale(.75) brightness(.45);transition:filter .7s ease}
-  .kinfo.dimmed>.k-overbanner{filter:none}
-  .k-overbanner{position:absolute;inset:0;z-index:6;display:flex;align-items:center;justify-content:center;
-    gap:20px;opacity:0;transition:.5s ease;pointer-events:none}
-  .k-overbanner.show{opacity:1}
-  .k-overbanner .btn{pointer-events:auto;box-shadow:0 14px 40px rgba(0,0,0,.6)}
-  .k-overbanner .arr{color:var(--gold);font-size:40px;font-weight:800;line-height:1;
-    text-shadow:0 4px 18px rgba(0,0,0,.7);animation:k-flickr .65s ease-in-out infinite}
-  .k-overbanner .arr.l{animation-name:k-flickl}
-  @keyframes k-flickr{0%,100%{transform:translateX(0);opacity:1}50%{transform:translateX(10px);opacity:.55}}
-  @keyframes k-flickl{0%,100%{transform:translateX(0);opacity:1}50%{transform:translateX(-10px);opacity:.55}}
   /* SageTrader launch video */
   .st-frame{position:relative;width:min(300px,82%);margin:0 auto;border-radius:18px;overflow:hidden;
     border:1px solid var(--line);background:#000;box-shadow:0 24px 60px rgba(0,0,0,.55);cursor:pointer;
@@ -684,7 +673,7 @@
       <div>
         <div class="st-frame" id="stFrame">
           <video id="stVid" src="sagetrader-launch.mp4" autoplay muted loop playsinline preload="auto" aria-label="SageTrader brand launch video"></video>
-          <button class="k-sound"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg> Click for sound</button>
+          <button class="k-sound"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg> Sound On</button>
         </div>
       </div>
     </div>
@@ -1078,33 +1067,11 @@ document.getElementById('yr').textContent=new Date().getFullYear();
     window.onYouTubeIframeAPIReady=function(){prev&&prev();cb()};
   }
   window.jcClearBanner=()=>{};
-  const slide=grid.closest('.kinfo')||grid;
-  function scheduleBanner(){
-    if(obShown)return;obShown=true;
-    setTimeout(()=>{
-      if(demo){obShown=false;return} // a video is playing — never show over it
-      slide.classList.add('dimmed');
-      const ob=document.createElement('div');
-      ob.className='k-overbanner';
-      ob.innerHTML='<span class="arr l" aria-hidden="true">‹</span><a class="btn btn-primary" href="case-studies.html">See More Work</a><span class="arr" aria-hidden="true">›</span>';
-      slide.appendChild(ob);
-      const pv=document.getElementById('cbPrev'),nx=document.getElementById('cbNext');
-      pv&&pv.classList.add('attn');nx&&nx.classList.add('attn');
-      requestAnimationFrame(()=>ob.classList.add('show'));
-      window.jcClearBanner=()=>{
-        slide.classList.remove('dimmed');ob.remove();
-        pv&&pv.classList.remove('attn');nx&&nx.classList.remove('attn');
-        obShown=false;
-        window.jcClearBanner=()=>{};
-      };
-    },2000);
-  }
-  function closePlayer(showBanner){
+  function closePlayer(){
     clearTimeout(stopTimer);stopTimer=null;
     first.classList.remove('selected');
     if(ytp){try{ytp.destroy()}catch(_){/**/}ytp=null}
     if(demo){demo.classList.remove('on');const d=demo;demo=null;setTimeout(()=>d.remove(),500)}
-    if(showBanner)scheduleBanner();
   }
   window.jcCancelDemo=()=>{autoCancelled=true;closePlayer(false);window.jcClearBanner()};
   function openPlayer(vid,limit){
@@ -1121,8 +1088,8 @@ document.getElementById('yr').textContent=new Date().getFullYear();
     x.className='k-x';x.innerHTML='✕';x.setAttribute('aria-label','Close video');
     x.addEventListener('click',()=>closePlayer(true));
     const snd=document.createElement('button');
-    snd.className='k-sound';
-    snd.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg> Click for sound';
+    snd.className='k-sound show';
+    snd.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg> Sound On';
     snd.addEventListener('click',e=>{
       e.stopPropagation();
       try{if(ytp){ytp.unMute();ytp.setVolume(80)}}catch(_){/**/}
@@ -1130,8 +1097,9 @@ document.getElementById('yr').textContent=new Date().getFullYear();
     });
     demo.appendChild(catchd);demo.appendChild(x);demo.appendChild(snd);
     grid.appendChild(demo);
-    const muteCheck=()=>{try{if(ytp&&ytp.isMuted&&ytp.isMuted())snd.classList.add('show')}catch(_){/**/}};
-    setTimeout(muteCheck,150);setTimeout(muteCheck,500);setTimeout(muteCheck,1200);
+    // hide the badge only if the video is confirmed playing with sound already on
+    const sndCheck=()=>{try{if(ytp&&ytp.isMuted&&!ytp.isMuted()&&ytp.getPlayerState()===1)snd.classList.remove('show')}catch(_){/**/}};
+    setTimeout(sndCheck,700);setTimeout(sndCheck,1500);
     requestAnimationFrame(()=>demo&&demo.classList.add('on'));
     loadYT(()=>{
       if(!demo)return;
@@ -1175,7 +1143,7 @@ document.getElementById('yr').textContent=new Date().getFullYear();
     v.muted=true;
     const tryPlay=()=>{const p=v.play();p&&p.catch(()=>{/**/})};
     tryPlay();
-    setTimeout(()=>{if(v.muted)snd.classList.add('show')},900);
+    if(v.muted)snd.classList.add('show');
     const setBadge=()=>{v.muted?snd.classList.add('show'):snd.classList.remove('show')};
     snd.addEventListener('click',e=>{e.stopPropagation();v.muted=false;setBadge();if(v.paused)tryPlay()});
     frame.addEventListener('click',()=>{v.muted=!v.muted;setBadge();if(v.paused)tryPlay()});
