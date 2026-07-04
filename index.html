@@ -539,7 +539,7 @@
     <nav class="nav-links">
       <a href="services.html">Services</a>
       <a href="case-studies.html">Work</a>
-      <a href="#who">Who we help</a>
+
       <a href="#why">Why us</a>
       <a href="#team">Team</a>
       <a href="#contact">Contact</a>
@@ -775,83 +775,137 @@
 </section>
 
 
-<!-- SERVICES -->
+<!-- SERVICES / GROWTH SYSTEM -->
 <section class="block" id="services">
+  <style>
+    .gc-cycle{position:relative;height:560px;max-width:840px;margin:10px auto 0}
+    .gc-ring{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+    .gc-ring ellipse{animation:gc-dash 1.4s linear infinite}
+    @keyframes gc-dash{to{stroke-dashoffset:-12}}
+    .gc-arr{animation:gc-arrp 8.4s ease-in-out infinite;animation-delay:calc(var(--i)*1.2s + .5s);opacity:.5}
+    @keyframes gc-arrp{0%,12%,100%{opacity:.5}5%{opacity:1}}
+    .gc-node{position:absolute;width:168px;text-align:center;transform:translate(-50%,-50%)}
+    .gc-node .ic{position:relative;width:56px;height:56px;border-radius:50%;margin:0 auto 9px;display:flex;align-items:center;justify-content:center;
+      background:rgba(199,157,74,.12);border:1.5px solid var(--gold);color:var(--gold);
+      animation:gc-glow 8.4s ease-in-out infinite;animation-delay:calc(var(--i)*1.2s)}
+    @keyframes gc-glow{
+      0%,12%,100%{transform:scale(1);background:rgba(199,157,74,.12);color:var(--gold);box-shadow:none}
+      5%{transform:scale(1.16);background:var(--gold);color:#1a1206;box-shadow:0 0 0 9px rgba(199,157,74,.16),0 10px 30px rgba(0,0,0,.5)}}
+    .gc-node .ic svg{width:24px;height:24px;fill:currentColor}
+    .gc-node .num{position:absolute;top:-6px;right:-8px;width:20px;height:20px;border-radius:50%;
+      background:var(--ink);border:1.5px solid var(--gold);color:var(--gold);
+      font-size:10.5px;font-weight:800;display:flex;align-items:center;justify-content:center}
+    .gc-node h4{font-size:12.5px;font-weight:800;letter-spacing:1.3px;text-transform:uppercase;color:var(--white)}
+    .gc-node p{font-size:12.5px;color:var(--muted);margin-top:3px;line-height:1.45}
+    .gc-core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;width:230px}
+    .gc-core .inf{font-size:30px;color:var(--gold);line-height:1;display:inline-block;animation:gc-inf 3s ease-in-out infinite}
+    @keyframes gc-inf{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.14);opacity:1}}
+    .gc-core span{display:block;font-size:11px;letter-spacing:2.5px;color:var(--muted);text-transform:uppercase;margin-top:6px}
+    .gc-core b{display:block;font-size:25px;font-weight:800;letter-spacing:4px;color:var(--gold);margin-top:2px}
+    .gc-bar{display:flex;align-items:center;justify-content:center;gap:14px;max-width:720px;margin:34px auto 0;
+      border:1px solid var(--line);border-radius:14px;padding:15px 22px;font-size:12.5px;letter-spacing:2px;
+      text-transform:uppercase;color:var(--muted);font-weight:600;text-align:center;flex-wrap:wrap}
+    .gc-bar .inf{color:var(--gold);font-size:20px;line-height:1}
+    .gc-bar b{color:var(--gold)}
+    @media(max-width:920px){
+      .gc-cycle{height:auto}
+      .gc-ring,.gc-core{display:none}
+      .gc-node{position:static;transform:none;width:auto;display:grid;grid-template-columns:56px 1fr;column-gap:14px;text-align:left;margin-bottom:18px;align-items:center}
+      .gc-node .ic{margin:0;grid-row:1/3}
+      .gc-node p{margin-top:2px}
+    }
+    @media(prefers-reduced-motion:reduce){.gc-ring ellipse,.gc-arr,.gc-node .ic,.gc-core .inf{animation:none}}
+  </style>
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">What we do</span>
-      <h2>Five things, done properly</h2>
-      <p>Pick one or let us run the lot — clear pricing, plain English, no jargon.</p>
+      <h2>Not just content — <span class="gold">a system.</span></h2>
+      <p>Every piece of marketing has one job: move the customer to the next step.</p>
     </div>
-    <div class="grid">
-      <div class="card">
-        <div class="ico soc">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.11-2.12C19.52 3.5 12 3.5 12 3.5s-7.52 0-9.39.58A3 3 0 0 0 .5 6.2 31.2 31.2 0 0 0 0 12a31.2 31.2 0 0 0 .5 5.8 3 3 0 0 0 2.11 2.12C4.48 20.5 12 20.5 12 20.5s7.52 0 9.39-.58A3 3 0 0 0 23.5 17.8 31.2 31.2 0 0 0 24 12a31.2 31.2 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6z"/></svg>
-        </div>
-        <h3>Social media</h3>
-        <p>Channel growth on X and YouTube — the platforms that move the trading world.</p>
+    <div class="gc-cycle">
+      <svg class="gc-ring" viewBox="0 0 760 460" preserveAspectRatio="none" aria-hidden="true">
+        <ellipse cx="380" cy="230" rx="300" ry="175" fill="none" stroke="#c79d4a" stroke-opacity=".5" stroke-width="1.5" stroke-dasharray="4 8"/>
+        <g fill="#c79d4a">
+          <polygon class="gc-arr" style="--i:0" points="0,-6 13,0 0,6" transform="translate(510,72) rotate(15.7)"/>
+          <polygon class="gc-arr" style="--i:1" points="0,-6 13,0 0,6" transform="translate(673,191) rotate(68.6)"/>
+          <polygon class="gc-arr" style="--i:2" points="0,-6 13,0 0,6" transform="translate(614,339) rotate(143.8)"/>
+          <polygon class="gc-arr" style="--i:3" points="0,-6 13,0 0,6" transform="translate(380,405) rotate(180)"/>
+          <polygon class="gc-arr" style="--i:4" points="0,-6 13,0 0,6" transform="translate(146,339) rotate(216.2)"/>
+          <polygon class="gc-arr" style="--i:5" points="0,-6 13,0 0,6" transform="translate(87,191) rotate(291.4)"/>
+          <polygon class="gc-arr" style="--i:6" points="0,-6 13,0 0,6" transform="translate(250,72) rotate(344.3)"/>
+        </g>
+      </svg>
+
+      <div class="gc-node" style="--i:0;left:50%;top:12%">
+        <div class="ic"><span class="num">1</span><svg viewBox="0 0 24 24"><path d="M9 21h6v-1H9v1zm3-19a7 7 0 0 0-4 12.74c.6.44 1 1.09 1 1.83V17h6v-.43c0-.74.4-1.39 1-1.83A7 7 0 0 0 12 2zm3 16H9v1h6v-1z"/></svg></div>
+        <h4>Message / Idea</h4>
+        <p>The problem. The solution.</p>
       </div>
-      <div class="card">
-        <div class="ico">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm6 3.5v7l6-3.5z"/></svg>
-        </div>
-        <h3>Video editing</h3>
-        <p>Short and long-form edits that hook fast and cut to convert.</p>
+      <div class="gc-node" style="--i:1;left:81%;top:26%">
+        <div class="ic"><span class="num">2</span><svg viewBox="0 0 24 24"><path d="M21 3H3a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h7v2H7v2h10v-2h-3v-2h7a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zm-1 12H4V5h16v10z"/></svg></div>
+        <h4>Website</h4>
+        <p>Where the story lives.</p>
       </div>
-      <div class="card">
-        <div class="ico">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 14a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v5a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11z"/></svg>
-        </div>
-        <h3>Podcasts</h3>
-        <p>End-to-end production. 200+ episodes, 10M+ views.</p>
+      <div class="gc-node" style="--i:2;left:88.5%;top:58.5%">
+        <div class="ic"><span class="num">3</span><svg viewBox="0 0 24 24"><path d="M12 16l-6-6h4V4h4v6h4l-6 6zm-7 2h14v2H5v-2z"/></svg></div>
+        <h4>Lead capture</h4>
+        <p>Turn visitors into subscribers.</p>
       </div>
-      <div class="card">
-        <div class="ico">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6zm2.4 0L12 11.5 19.6 6z"/></svg>
-        </div>
-        <h3>Email marketing</h3>
-        <p>Newsletters that keep lists warm — 200k+ reach, 32% open.</p>
+      <div class="gc-node" style="--i:3;left:67%;top:84%">
+        <div class="ic"><span class="num">4</span><svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+        <h4>Email</h4>
+        <p>Build trust. Automatically.</p>
       </div>
-      <div class="card">
-        <div class="ico">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.9 6h-2.6a15.7 15.7 0 0 0-1.3-3.4A8 8 0 0 1 18.9 8zM12 4c.8 1.1 1.5 2.5 1.9 4h-3.8c.4-1.5 1.1-2.9 1.9-4zM4.3 14a8 8 0 0 1 0-4h3a17.6 17.6 0 0 0 0 4zm.8 2h2.6c.3 1.2.8 2.4 1.3 3.4A8 8 0 0 1 5.1 16zm2.6-8H5.1a8 8 0 0 1 3.9-3.4A15.7 15.7 0 0 0 7.7 8zM12 20c-.8-1.1-1.5-2.5-1.9-4h3.8c-.4 1.5-1.1 2.9-1.9 4zm2.3-6H9.7a15.5 15.5 0 0 1 0-4h4.6a15.5 15.5 0 0 1 0 4zm.6 5.4c.5-1 1-2.2 1.3-3.4h2.6a8 8 0 0 1-3.9 3.4zM16.7 14a17.6 17.6 0 0 0 0-4h3a8 8 0 0 1 0 4z"/></svg>
-        </div>
-        <h3>Websites</h3>
-        <p>Fast, mobile-first sites built to convert, not just look pretty.</p>
+      <div class="gc-node" style="--i:4;left:33%;top:84%">
+        <div class="ic"><span class="num">5</span><svg viewBox="0 0 24 24"><path d="M16 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3zm-8 0a3 3 0 1 0-3-3 3 3 0 0 0 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0a8 8 0 0 0-1 .07 4.19 4.19 0 0 1 2 3.43V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
+        <h4>Customers</h4>
+        <p>They buy and get results.</p>
+      </div>
+      <div class="gc-node" style="--i:5;left:11.5%;top:58.5%">
+        <div class="ic"><span class="num">6</span><svg viewBox="0 0 24 24"><path d="M18 16.08a2.91 2.91 0 0 0-1.96.77L8.91 12.7a3.27 3.27 0 0 0 0-1.4l7.05-4.11A2.99 2.99 0 1 0 15 5a3.27 3.27 0 0 0 .09.7L8.04 9.81a3 3 0 1 0 0 4.38l7.12 4.16a2.82 2.82 0 0 0-.08.65 2.92 2.92 0 1 0 2.92-2.92z"/></svg></div>
+        <h4>Referrals</h4>
+        <p>Happy customers spread the word.</p>
+      </div>
+      <div class="gc-node" style="--i:6;left:19%;top:26%">
+        <div class="ic"><span class="num">7</span><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm-2 14.5v-9l7 4.5z"/></svg></div>
+        <h4>Content &amp; social</h4>
+        <p>New people discover you.</p>
+      </div>
+
+      <div class="gc-core">
+        <span class="inf">∞</span>
+        <span>An endless cycle of</span>
+        <b>GROWTH</b>
       </div>
     </div>
+    <div class="gc-bar"><span class="inf">∞</span> One message. Every channel. <b>Real growth</b> — on repeat.</div>
   </div>
 </section>
 
-<!-- WHO WE HELP -->
-<section class="block alt" id="who">
+<!-- TEAM -->
+<section class="block alt" id="team">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">Who we help</span>
-      <h2>A specialism in the financial market</h2>
-      <p>We know the audience, the tone, and the trust that finance demands — and we help small businesses grow too.</p>
+      <span class="eyebrow">Meet the team</span>
+      <h2>The people behind the work</h2>
     </div>
-    <div class="split">
-      <div class="panel-box feature">
-        <span class="tag">Our specialism</span>
-        <h3>Traders &amp; trading firms</h3>
-        <ul>
-          <li>Channel growth on X and YouTube — built for trading</li>
-          <li>Authority content that earns followers and trust</li>
-          <li>Short-form video and clips that travel</li>
-          <li>Email nurture that turns followers into clients</li>
-        </ul>
+    <div class="team">
+      <div class="tm">
+        <img src="team-stephen.jpg" alt="Stephen Johnson — Co-Founder and Creative Director" loading="lazy">
+        <h3>Stephen Johnson</h3>
+        <div class="tm-role">Co-Founder &amp; Creative Director</div>
+        <p>Leads creative strategy, branding, website design and marketing campaigns that bring brands to life.</p>
       </div>
-      <div class="panel-box">
-        <span class="tag">Also for</span>
-        <h3>Small businesses</h3>
-        <ul>
-          <li>Your outside marketing team, on call</li>
-          <li>A website that earns its keep</li>
-          <li>Consistent content without the headache</li>
-          <li>One point of contact, no jargon</li>
-        </ul>
+      <div class="tm">
+        <img src="team-lisa.jpg" alt="Lisa Johnson — Co-Founder and Content Manager" loading="lazy">
+        <h3>Lisa Johnson</h3>
+        <div class="tm-role">Co-Founder &amp; Content Manager</div>
+        <p>Oversees content production, podcast editing, client delivery and business operations.</p>
+      </div>
+      <div class="tm">
+        <img src="team-john.jpg" alt="John Maher — AI and Content Lead" loading="lazy">
+        <h3>John Maher</h3>
+        <div class="tm-role">AI &amp; Content Lead</div>
+        <p>Leads AI workflows, copywriting, content creation and automation to help brands scale efficiently.</p>
       </div>
     </div>
   </div>
@@ -861,7 +915,7 @@
 <section class="block" id="why">
   <div class="wrap">
     <div class="section-head">
-      <h2>Trusted by industry leaders</h2>
+      <h2>Who we've worked with</h2>
     </div>
     <div class="b-tier">Trading &amp; financial markets</div>
     <div class="brands b-fin">
@@ -898,36 +952,6 @@
   </div>
 </section>
 
-<!-- TEAM -->
-<section class="block alt" id="team">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">Meet the team</span>
-      <h2>The people behind the work</h2>
-    </div>
-    <div class="team">
-      <div class="tm">
-        <img src="team-stephen.jpg" alt="Stephen Johnson — Co-Founder and Creative Director" loading="lazy">
-        <h3>Stephen Johnson</h3>
-        <div class="tm-role">Co-Founder &amp; Creative Director</div>
-        <p>Leads creative strategy, branding, website design and marketing campaigns that bring brands to life.</p>
-      </div>
-      <div class="tm">
-        <img src="team-lisa.jpg" alt="Lisa Johnson — Co-Founder and Content Manager" loading="lazy">
-        <h3>Lisa Johnson</h3>
-        <div class="tm-role">Co-Founder &amp; Content Manager</div>
-        <p>Oversees content production, podcast editing, client delivery and business operations.</p>
-      </div>
-      <div class="tm">
-        <img src="team-john.jpg" alt="John Maher — AI and Content Lead" loading="lazy">
-        <h3>John Maher</h3>
-        <div class="tm-role">AI &amp; Content Lead</div>
-        <p>Leads AI workflows, copywriting, content creation and automation to help brands scale efficiently.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- CTA -->
 <section class="wrap" id="contact">
   <div class="cta-band">
@@ -960,7 +984,7 @@
       <div class="foot-col">
         <h5>Explore</h5>
         <a href="services.html">Services</a>
-        <a href="#who">Who we help</a>
+
         <a href="#why">Why us</a>
         <a href="#contact">Contact</a>
       </div>
