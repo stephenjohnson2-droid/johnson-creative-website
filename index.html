@@ -137,8 +137,15 @@
   .brands span:hover{color:var(--white)}
   .brands .b-low{text-transform:lowercase;letter-spacing:0}
   .b-fin span{font-size:21px;color:#8a8578}
+  .b-fin img{height:28px;width:auto;opacity:.85;transition:opacity .25s ease;display:block}
+  .b-fin img:hover{opacity:1}
+  .b-fin .lg-tall{height:42px}
+  .b-fin .lg-pair{display:inline-flex;align-items:center;gap:9px}
+  .b-fin .lg-pair .lg-icon{height:26px}
+  .b-fin .lg-pair b{font-size:22px;font-weight:800;color:#e9e6df;text-transform:lowercase;letter-spacing:0}
   .b-glob span{font-size:16px}
-  @media(max-width:680px){.brands{gap:16px 30px}.b-fin span{font-size:17px}.b-glob span{font-size:13.5px}}
+  @media(max-width:680px){.brands{gap:16px 30px}.b-fin span{font-size:17px}.b-glob span{font-size:13.5px}
+    .b-fin img{height:22px}.b-fin .lg-tall{height:32px}}
 
   /* Who we help */
   .split{display:grid;grid-template-columns:1fr 1fr;gap:22px}
@@ -455,6 +462,14 @@
   .cb-hint span{color:var(--gold);animation:cb-bounce 1.4s ease-in-out infinite;display:inline-block}
   @keyframes cb-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
   .cb-hint.done{opacity:0;transition:.5s}
+  .cb-more{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:16px;
+    font-size:11.5px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .cb-more b{color:var(--gold);font-size:16px;letter-spacing:3px}
+  .cb-nav.nudge{border-color:var(--gold);background:rgba(199,157,74,.3);
+    animation:k-navpulse .95s ease-in-out infinite}
+  #kinfo.unlocked .cb-sticky{position:static;height:auto;overflow:visible}
+  #kinfo.unlocked .cb-sticky .kin-marquee:not(.hide){display:block}
+  #kinfo.unlocked .cb-hint{display:none}
   .cb-dots{display:flex;gap:8px;justify-content:center;margin-top:28px}
   .cb-dot{width:36px;height:7px;border-radius:4px;background:var(--line);cursor:pointer;transition:.3s;border:0;padding:0}
   .cb-dot:hover{background:var(--gold-soft)}
@@ -740,6 +755,7 @@
       <button class="cb-nav cb-prev" id="cbPrev" aria-label="Previous case study">‹</button>
       <button class="cb-nav cb-next" id="cbNext" aria-label="Next case study">›</button>
       <div class="cb-dots" id="cbDots"></div>
+      <div class="cb-more" id="cbMore">View more work examples <b>‹ ›</b> click the arrows or scroll</div>
     </div>
   </div>
   <div class="kin-marquee" aria-label="Kinfo Podcast episodes">
@@ -859,14 +875,14 @@
     </div>
     <div class="b-tier">Trading &amp; financial markets</div>
     <div class="brands b-fin">
-      <span>SageTrader</span>
-      <span>Zimtra</span>
-      <span>TradeZero</span>
-      <span>Aikido Trading</span>
-      <span>Timothy Sykes</span>
-      <span>StocksToTrade</span>
-      <span class="b-low">kinfo</span>
-      <span>EdgeToTrade</span>
+      <img src="logo-sagetrader.svg" alt="SageTrader">
+      <img src="logo-zimtra.svg" alt="Zimtra" class="lg-tall">
+      <img src="logo-tradezero.svg" alt="TradeZero">
+      <img src="logo-aikido.png" alt="Aikido Trading Method" class="lg-tall">
+      <img src="logo-timothysykes.svg" alt="Timothy Sykes">
+      <img src="logo-stockstotrade.svg" alt="StocksToTrade">
+      <span class="lg-pair"><img src="logo-kinfo.svg" alt="Kinfo" class="lg-icon"><b>kinfo</b></span>
+      <img src="logo-edgetotrade.svg" alt="Edge To Trade">
     </div>
     <div class="b-tier b-t2">Also trusted by global brands</div>
     <div class="brands b-glob">
@@ -986,6 +1002,7 @@ document.getElementById('yr').textContent=new Date().getFullYear();
     if(mq)mq.classList.toggle('hide',i!==0);
     // leaving Kinfo closes any open episode player so the showcase continues cleanly
     if(prev===0&&i!==0&&window.jcCancelDemo)window.jcCancelDemo();
+    if(i!==0){const nx=document.getElementById('cbNext');if(nx)nx.classList.remove('nudge')}
     window.jcOnSlide&&window.jcOnSlide(i);
   }
   // scroll-locked showcase (desktop): scrolling flips through the banners
@@ -995,7 +1012,7 @@ document.getElementById('yr').textContent=new Date().getFullYear();
   const perSlide=60; // vh of scroll per banner
   function pinned(){return deskMq.matches&&sticky&&getComputedStyle(sticky).position==='sticky'}
   function sizeScroller(){
-    if(!scroller)return;
+    if(!scroller||scroller.classList.contains('unlocked'))return;
     if(deskMq.matches){scroller.style.height='calc('+(slides*perSlide)+'vh + 100vh)';scroller.style.paddingTop='0'}
     else{scroller.style.height='';scroller.style.paddingTop='64px'}
   }
@@ -1018,9 +1035,23 @@ document.getElementById('yr').textContent=new Date().getFullYear();
   // arrows/dots: in pinned mode, move the page scroll so the lock stays in sync
   function nav(n){
     n=(n+slides)%slides;
+    const nx=document.getElementById('cbNext');
+    if(nx)nx.classList.remove('nudge');
     if(pinned()){window.scrollTo({top:slideOffset(n),behavior:'smooth'})}
     else{go(n)}
   }
+  // pulse the next arrow until the visitor navigates once
+  const nudgeEl=document.getElementById('cbNext');
+  if(nudgeEl)setTimeout(()=>{if(i===0)nudgeEl.classList.add('nudge')},4000);
+  // clicking away from the carousel unlocks the scroll pin
+  document.addEventListener('click',e=>{
+    if(!deskMq.matches||!scroller||scroller.classList.contains('unlocked'))return;
+    if(e.target.closest('#kinfo')&&!e.target.closest('#cbWrap')&&!e.target.closest('.kin-marquee')){
+      scroller.classList.add('unlocked');
+      scroller.style.height='';
+      scroller.style.paddingTop='64px';
+    }
+  });
   document.getElementById('cbPrev').addEventListener('click',()=>nav(i-1));
   document.getElementById('cbNext').addEventListener('click',()=>nav(i+1));
   for(let d=0;d<slides;d++){dots[d].onclick=()=>nav(d)}
