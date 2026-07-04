@@ -124,6 +124,19 @@
   .pillar h4{font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
   .pillar p{color:var(--muted);font-size:14px}
 
+  /* Team */
+  .team{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;max-width:1040px;margin:0 auto}
+  @media(max-width:820px){.team{grid-template-columns:1fr;max-width:420px}}
+  .tm{text-align:center}
+  .tm img{width:100%;aspect-ratio:1/1.06;object-fit:cover;border-radius:14px;
+    border:1px solid var(--line);transition:.25s ease}
+  .tm:hover img{border-color:var(--gold)}
+  .tm h3{font-size:20px;color:var(--white);margin-top:20px;letter-spacing:1.5px;
+    text-transform:uppercase;font-weight:800}
+  .tm-role{font-size:11.5px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);
+    font-weight:700;margin-top:7px}
+  .tm p{color:var(--muted);font-size:14px;margin-top:12px;max-width:300px;margin-left:auto;margin-right:auto}
+
   /* Brand wall */
   .b-tier{text-align:center;font-size:11px;font-weight:700;letter-spacing:3.5px;
     text-transform:uppercase;color:var(--gold);margin:0 0 26px;display:flex;
@@ -904,6 +917,36 @@
   </div>
 </section>
 
+<!-- TEAM -->
+<section class="block alt" id="team">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Meet the team</span>
+      <h2>The people behind the work</h2>
+    </div>
+    <div class="team">
+      <div class="tm">
+        <img src="team-stephen.jpg" alt="Stephen Johnson — Co-Founder and Creative Director" loading="lazy">
+        <h3>Stephen Johnson</h3>
+        <div class="tm-role">Co-Founder &amp; Creative Director</div>
+        <p>Leads creative strategy, branding, website design and marketing campaigns that bring brands to life.</p>
+      </div>
+      <div class="tm">
+        <img src="team-lisa.jpg" alt="Lisa Johnson — Co-Founder and Content Manager" loading="lazy">
+        <h3>Lisa Johnson</h3>
+        <div class="tm-role">Co-Founder &amp; Content Manager</div>
+        <p>Oversees content production, podcast editing, client delivery and business operations.</p>
+      </div>
+      <div class="tm">
+        <img src="team-john.jpg" alt="John Maher — AI and Content Lead" loading="lazy">
+        <h3>John Maher</h3>
+        <div class="tm-role">AI &amp; Content Lead</div>
+        <p>Leads AI workflows, copywriting, content creation and automation to help brands scale efficiently.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <section class="wrap" id="contact">
   <div class="cta-band">
@@ -1217,7 +1260,7 @@ const mb=document.querySelector('.menu-btn'),nl=document.querySelector('.nav-lin
 if(mb&&nl){mb.addEventListener('click',()=>{const o=nl.classList.toggle('open');mb.classList.toggle('open',o);mb.setAttribute('aria-expanded',o)});
 nl.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nl.classList.remove('open');mb.classList.remove('open')}))}
 // reveal on scroll
-const rvEls=document.querySelectorAll('.section-head,.card,.pillar,.panel-box,.cta-band,.show-card');
+const rvEls=document.querySelectorAll('.section-head,.card,.pillar,.panel-box,.cta-band,.tm');
 rvEls.forEach(el=>{el.classList.add('rv');const p=el.parentElement;if(p){const i=Array.prototype.indexOf.call(p.children,el);el.style.transitionDelay=((i%5)*.07)+'s'}});
 if('IntersectionObserver' in window){
   const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}}),{threshold:.1,rootMargin:'0px 0px -30px 0px'});
