@@ -125,13 +125,20 @@
   .pillar p{color:var(--muted);font-size:14px}
 
   /* Brand wall */
+  .b-tier{text-align:center;font-size:11px;font-weight:700;letter-spacing:3.5px;
+    text-transform:uppercase;color:var(--gold);margin:0 0 26px;display:flex;
+    align-items:center;justify-content:center;gap:18px}
+  .b-tier::before,.b-tier::after{content:"";height:1px;width:70px;background:var(--line)}
+  .b-tier.b-t2{margin-top:52px;color:var(--muted)}
   .brands{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;
-    gap:28px 56px;max-width:940px;margin:0 auto}
-  .brands span{font-size:21px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
+    gap:24px 52px;max-width:980px;margin:0 auto}
+  .brands span{font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
     color:#6d6a62;transition:color .25s ease;white-space:nowrap;cursor:default}
   .brands span:hover{color:var(--white)}
   .brands .b-low{text-transform:lowercase;letter-spacing:0}
-  @media(max-width:680px){.brands{gap:18px 34px}.brands span{font-size:16px}}
+  .b-fin span{font-size:21px;color:#8a8578}
+  .b-glob span{font-size:16px}
+  @media(max-width:680px){.brands{gap:16px 30px}.b-fin span{font-size:17px}.b-glob span{font-size:13.5px}}
 
   /* Who we help */
   .split{display:grid;grid-template-columns:1fr 1fr;gap:22px}
@@ -449,7 +456,8 @@
   @keyframes cb-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
   .cb-hint.done{opacity:0;transition:.5s}
   .cb-dots{display:flex;gap:8px;justify-content:center;margin-top:28px}
-  .cb-dot{width:24px;height:4px;border-radius:2px;background:var(--line);cursor:pointer;transition:.3s;border:0;padding:0}
+  .cb-dot{width:36px;height:7px;border-radius:4px;background:var(--line);cursor:pointer;transition:.3s;border:0;padding:0}
+  .cb-dot:hover{background:var(--gold-soft)}
   .cb-dot.active{background:var(--gold)}
   .cb-illus{border:1px solid var(--line);border-radius:14px;
     background:linear-gradient(160deg,#101014,#191920);padding:44px 34px;
@@ -847,18 +855,39 @@
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Why Johnson Creative</span>
-      <h2>Brands we've worked with</h2>
+      <h2>Trusted by industry leaders</h2>
     </div>
-    <div class="brands">
-      <span>TradeZero</span>
-      <span>Pringles</span>
-      <span>Pioneer</span>
-      <span>StocksToTrade</span>
-      <span class="b-low">kinfo</span>
+    <div class="b-tier">Trading &amp; financial markets</div>
+    <div class="brands b-fin">
       <span>SageTrader</span>
       <span>Zimtra</span>
+      <span>TradeZero</span>
       <span>Aikido Trading</span>
+      <span>Timothy Sykes</span>
+      <span>StocksToTrade</span>
+      <span class="b-low">kinfo</span>
       <span>EdgeToTrade</span>
+    </div>
+    <div class="b-tier b-t2">Also trusted by global brands</div>
+    <div class="brands b-glob">
+      <span>MG</span>
+      <span>KLM</span>
+      <span>Dolby Cinema</span>
+      <span>Emaar</span>
+      <span>RSA</span>
+      <span>Pringles</span>
+      <span>Kellogg's</span>
+      <span>Bateel</span>
+      <span>ADIB</span>
+      <span>NBF</span>
+      <span>Philips</span>
+      <span>Pioneer</span>
+      <span>NHS King's College Hospital</span>
+      <span>Dubai Chamber</span>
+      <span>Imperial College London</span>
+      <span>Daman</span>
+      <span>Emirates Loto</span>
+      <span>Bavaria</span>
     </div>
   </div>
 </section>
@@ -948,12 +977,15 @@ document.getElementById('yr').textContent=new Date().getFullYear();
   }
   const dots=dotsBox.children;
   function go(n){
+    const prev=i;
     i=(n+slides)%slides;
     track.style.transform='translateX(-'+(i*100)+'%)';
     for(let d=0;d<slides;d++)dots[d].classList.toggle('active',d===i);
     // the episode wall belongs to the Kinfo slide only
     const mq=document.querySelector('.kin-marquee');
     if(mq)mq.classList.toggle('hide',i!==0);
+    // leaving Kinfo closes any open episode player so the showcase continues cleanly
+    if(prev===0&&i!==0&&window.jcCancelDemo)window.jcCancelDemo();
     window.jcOnSlide&&window.jcOnSlide(i);
   }
   // scroll-locked showcase (desktop): scrolling flips through the banners
@@ -993,6 +1025,13 @@ document.getElementById('yr').textContent=new Date().getFullYear();
   document.getElementById('cbNext').addEventListener('click',()=>nav(i+1));
   for(let d=0;d<slides;d++){dots[d].onclick=()=>nav(d)}
   const wrap=document.getElementById('cbWrap');
+  // click anywhere on a banner's empty space: right half = next, left half = back
+  const vp=wrap.querySelector('.cb-viewport');
+  vp.addEventListener('click',e=>{
+    if(e.target.closest('a,button,video,iframe,.kdemo,.st-frame,.k-sound'))return;
+    const r=vp.getBoundingClientRect();
+    nav(i+((e.clientX-r.left)>r.width/2?1:-1));
+  });
   let sx=null;
   wrap.addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
   wrap.addEventListener('touchend',e=>{
@@ -1072,7 +1111,7 @@ document.getElementById('yr').textContent=new Date().getFullYear();
     demo.appendChild(catchd);demo.appendChild(x);demo.appendChild(snd);
     grid.appendChild(demo);
     const muteCheck=()=>{try{if(ytp&&ytp.isMuted&&ytp.isMuted())snd.classList.add('show')}catch(_){/**/}};
-    setTimeout(muteCheck,600);setTimeout(muteCheck,1500);setTimeout(muteCheck,3000);
+    setTimeout(muteCheck,300);setTimeout(muteCheck,900);setTimeout(muteCheck,2000);
     requestAnimationFrame(()=>demo&&demo.classList.add('on'));
     loadYT(()=>{
       if(!demo)return;
@@ -1149,8 +1188,8 @@ document.getElementById('yr').textContent=new Date().getFullYear();
     setTimeout(()=>{
       if(autoCancelled||demo)return;
       first.classList.add('selected');
-      setTimeout(()=>{if(!autoCancelled&&!demo)openPlayer('pBS5vrqrUjk',true)},1500);
-    },6500);
+      setTimeout(()=>{if(!autoCancelled&&!demo)openPlayer('pBS5vrqrUjk',true)},800);
+    },3000);
   }
 })();
 // staggered candlestick pop-in
