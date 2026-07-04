@@ -1171,7 +1171,7 @@ document.getElementById('yr').textContent=new Date().getFullYear();
     demo.appendChild(catchd);demo.appendChild(x);demo.appendChild(snd);
     grid.appendChild(demo);
     const muteCheck=()=>{try{if(ytp&&ytp.isMuted&&ytp.isMuted())snd.classList.add('show')}catch(_){/**/}};
-    setTimeout(muteCheck,300);setTimeout(muteCheck,900);setTimeout(muteCheck,2000);
+    setTimeout(muteCheck,150);setTimeout(muteCheck,500);setTimeout(muteCheck,1200);
     requestAnimationFrame(()=>demo&&demo.classList.add('on'));
     loadYT(()=>{
       if(!demo)return;
@@ -1181,7 +1181,7 @@ document.getElementById('yr').textContent=new Date().getFullYear();
           onReady:e=>{
             try{e.target.unMute();e.target.setVolume(80);e.target.playVideo()}catch(_){/**/}
             // if the browser blocks unmuted autoplay, fall back to muted
-            setTimeout(()=>{try{if(ytp&&ytp.getPlayerState()!==1){ytp.mute();ytp.playVideo()}}catch(_){/**/}},1300);
+            setTimeout(()=>{try{if(ytp&&ytp.getPlayerState()!==1){ytp.mute();ytp.playVideo()}}catch(_){/**/}},600);
           },
           onStateChange:e=>{
             if(limit&&e.data===1&&!stopTimer){stopTimer=setTimeout(()=>closePlayer(true),20000)}
@@ -1249,8 +1249,8 @@ document.getElementById('yr').textContent=new Date().getFullYear();
     setTimeout(()=>{
       if(autoCancelled||demo)return;
       first.classList.add('selected');
-      setTimeout(()=>{if(!autoCancelled&&!demo)openPlayer('pBS5vrqrUjk',true)},800);
-    },3000);
+      setTimeout(()=>{if(!autoCancelled&&!demo)openPlayer('pBS5vrqrUjk',true)},500);
+    },1200);
   }
 })();
 // staggered candlestick pop-in
