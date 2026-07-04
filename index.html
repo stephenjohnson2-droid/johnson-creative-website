@@ -428,12 +428,26 @@
   .cb-viewport{overflow:hidden}
   .cb-track{display:flex;transition:transform .65s cubic-bezier(.5,0,.2,1)}
   .cb-slide{flex:0 0 100%;min-width:100%;padding:4px}
-  .cb-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;
-    border-radius:50%;border:1px solid var(--line);background:rgba(13,13,13,.85);color:var(--gold);
-    font-size:22px;line-height:1;cursor:pointer;z-index:5;display:flex;align-items:center;justify-content:center;transition:.2s}
-  .cb-nav:hover{border-color:var(--gold);background:rgba(199,157,74,.12)}
-  .cb-prev{left:-10px}.cb-next{right:-10px}
+  .cb-nav{position:absolute;top:50%;transform:translateY(-50%);width:60px;height:60px;
+    border-radius:50%;border:2px solid var(--gold);background:rgba(199,157,74,.15);color:var(--gold);
+    font-size:28px;line-height:1;cursor:pointer;z-index:5;display:flex;align-items:center;justify-content:center;
+    transition:.2s;box-shadow:0 8px 26px rgba(0,0,0,.5)}
+  .cb-nav:hover{background:var(--gold);color:#1a1206;transform:translateY(-50%) scale(1.1)}
+  .cb-prev{left:-8px}.cb-next{right:-8px}
   @media(max-width:920px){.cb-nav{display:none}}
+
+  /* Scroll-locked showcase (desktop): section pins while scrolling flips banners */
+  @media(min-width:921px){
+    .cb-sticky{position:sticky;top:74px;height:calc(100vh - 74px);
+      display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+    .cb-sticky .kin-marquee{display:none}
+    .cb-hint{display:flex}
+  }
+  .cb-hint{display:none;align-items:center;justify-content:center;gap:8px;margin-top:22px;
+    font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .cb-hint span{color:var(--gold);animation:cb-bounce 1.4s ease-in-out infinite;display:inline-block}
+  @keyframes cb-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+  .cb-hint.done{opacity:0;transition:.5s}
   .cb-dots{display:flex;gap:8px;justify-content:center;margin-top:28px}
   .cb-dot{width:24px;height:4px;border-radius:2px;background:var(--line);cursor:pointer;transition:.3s;border:0;padding:0}
   .cb-dot.active{background:var(--gold)}
@@ -557,6 +571,7 @@
 
 <!-- CASE STUDY BANNERS -->
 <section class="block" id="kinfo" style="padding-top:64px">
+  <div class="cb-sticky">
   <div class="wrap">
     <div class="section-head" style="margin-bottom:36px">
       <h2>Real stories. Real <span class="gold">results</span>.</h2>
@@ -711,115 +726,6 @@
     </div>
     </div>
 
-    <!-- Banner 3: SteadyTrade podcast -->
-    <div class="cb-slide">
-    <div class="kinfo">
-      <div>
-        <div class="k-meta">
-          <span class="k-tag t-podcast">Podcast</span>
-          <span class="k-client">Client: StocksToTrade</span>
-        </div>
-        <h2 class="k-title">The SteadyTrade Podcast — <span class="gold">10M+ views</span></h2>
-        <p class="k-lead">Planned, produced and co-hosted for three years — trading education people actually enjoyed, funnelling listeners toward StocksToTrade's software and education.</p>
-        <div class="kstats">
-          <div><div class="num">200+</div><div class="lab">Episodes</div></div>
-          <div><div class="num">10M+</div><div class="lab">Views</div></div>
-          <div><div class="num">3 yrs</div><div class="lab">End-to-end</div></div>
-        </div>
-      </div>
-      <div>
-        <div class="cb-illus" aria-hidden="true">
-          <svg viewBox="0 0 430 200" xmlns="http://www.w3.org/2000/svg" font-family="Montserrat,Arial,sans-serif">
-            <rect x="45" y="14" width="340" height="186" rx="12" fill="#1c1c23" stroke="#2b2b2b"/>
-            <circle cx="105" cy="80" r="30" fill="#25252d" stroke="#c79d4a" stroke-width="1.5"/>
-            <rect x="99" y="62" width="12" height="24" rx="6" fill="#c79d4a"/>
-            <path d="M91 82a14 14 0 0 0 28 0M105 96v10M97 106h16" stroke="#c79d4a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            <g fill="#c79d4a">
-              <rect x="160" y="70" width="6" height="22" rx="3"/><rect x="172" y="58" width="6" height="46" rx="3"/>
-              <rect x="184" y="66" width="6" height="30" rx="3"/><rect x="196" y="48" width="6" height="66" rx="3"/>
-              <rect x="208" y="62" width="6" height="38" rx="3"/><rect x="220" y="54" width="6" height="54" rx="3"/>
-              <rect x="232" y="70" width="6" height="22" rx="3"/><rect x="244" y="44" width="6" height="74" rx="3" fill="#d8b56a"/>
-              <rect x="256" y="60" width="6" height="42" rx="3"/><rect x="268" y="52" width="6" height="58" rx="3"/>
-              <rect x="280" y="68" width="6" height="26" rx="3"/><rect x="292" y="58" width="6" height="46" rx="3"/>
-              <rect x="304" y="72" width="6" height="18" rx="3" fill="#4a4a52"/><rect x="316" y="64" width="6" height="34" rx="3" fill="#4a4a52"/>
-              <rect x="328" y="70" width="6" height="22" rx="3" fill="#4a4a52"/><rect x="340" y="66" width="6" height="30" rx="3" fill="#4a4a52"/>
-            </g>
-            <text x="70" y="150" fill="#8b8778" font-size="10" letter-spacing="2">THE STEADYTRADE PODCAST</text>
-            <text x="70" y="172" fill="#e9e6df" font-size="13" font-weight="700">EP. 200 — LIVE</text>
-            <circle cx="352" cy="162" r="5" fill="#c79d4a"><animate attributeName="opacity" values="1;.2;1" dur="2s" repeatCount="indefinite"/></circle>
-          </svg>
-        </div>
-      </div>
-    </div>
-    </div>
-
-    <!-- Banner 4: Pioneer -->
-    <div class="cb-slide">
-    <div class="kinfo">
-      <div>
-        <div class="k-meta">
-          <span class="k-tag t-social">Social</span>
-          <span class="k-client">Client: Pioneer</span>
-        </div>
-        <h2 class="k-title">#AskForItByName — <span class="gold">+320% sales</span></h2>
-        <p class="k-lead">With car makers building in their own audio, we flipped the sales model — fans insisting on Pioneer by name in stores, powered by high-impact social content.</p>
-        <div class="kstats">
-          <div><div class="num">+320%</div><div class="lab">Sales, focus markets</div></div>
-          <div><div class="num">83k</div><div class="lab">New fans</div></div>
-          <div><div class="num">$0.21</div><div class="lab">Cost per fan</div></div>
-        </div>
-      </div>
-      <div>
-        <div class="cb-illus" aria-hidden="true">
-          <svg viewBox="0 0 430 200" xmlns="http://www.w3.org/2000/svg" font-family="Montserrat,Arial,sans-serif">
-            <rect x="65" y="12" width="300" height="188" rx="12" fill="#1c1c23" stroke="#2b2b2b"/>
-            <circle cx="94" cy="42" r="13" fill="#c79d4a"/>
-            <rect x="116" y="32" width="96" height="7" rx="3.5" fill="#3d3d46"/>
-            <rect x="116" y="45" width="62" height="6" rx="3" fill="#2c2c33"/>
-            <rect x="81" y="66" width="268" height="88" rx="9" fill="#25252d"/>
-            <text x="215" y="105" text-anchor="middle" fill="#c79d4a" font-size="17" font-weight="700" letter-spacing="1">#AskForItByName</text>
-            <text x="215" y="128" text-anchor="middle" fill="#8b8778" font-size="10" letter-spacing="2">PIONEER · SOCIAL</text>
-            <path d="M92 172c-4-4-10-2-10 3 0 4 10 10 10 10s10-6 10-10c0-5-6-7-10-3z" fill="#c79d4a"/>
-            <rect x="112" y="170" width="44" height="7" rx="3.5" fill="#3d3d46"/>
-            <rect x="170" y="170" width="30" height="7" rx="3.5" fill="#2c2c33"/>
-          </svg>
-        </div>
-      </div>
-    </div>
-    </div>
-
-    <!-- Banner 5: Pringles -->
-    <div class="cb-slide">
-    <div class="kinfo">
-      <div>
-        <div class="k-meta">
-          <span class="k-tag t-video">Video</span>
-          <span class="k-client">Client: Pringles</span>
-        </div>
-        <h2 class="k-title">#ThePerfectMatch — <span class="gold">9M reached</span></h2>
-        <p class="k-lead">A six-part video mini-series tying Pringles to football culture, extended to win over gamers as the "ultimate gaming chip." Two MENA Digital Awards — Gold &amp; Silver.</p>
-        <div class="kstats">
-          <div><div class="num">9M</div><div class="lab">Users reached</div></div>
-          <div><div class="num">4×</div><div class="lab">Industry engagement</div></div>
-          <div><div class="num">2</div><div class="lab">MENA awards</div></div>
-        </div>
-      </div>
-      <div>
-        <div class="cb-illus" aria-hidden="true">
-          <svg viewBox="0 0 430 200" xmlns="http://www.w3.org/2000/svg" font-family="Montserrat,Arial,sans-serif">
-            <rect x="45" y="14" width="340" height="186" rx="12" fill="#1c1c23" stroke="#2b2b2b"/>
-            <rect x="60" y="30" width="310" height="128" rx="9" fill="#25252d"/>
-            <circle cx="215" cy="94" r="26" fill="#c79d4a"/>
-            <path d="M208 81l22 13-22 13z" fill="#1a1206"/>
-            <rect x="60" y="172" width="310" height="5" rx="2.5" fill="#2c2c33"/>
-            <rect x="60" y="172" width="196" height="5" rx="2.5" fill="#c79d4a"/>
-            <text x="70" y="52" fill="#8b8778" font-size="10" letter-spacing="2">#THEPERFECTMATCH</text>
-            <path d="M340 44l3.5 7 8 1-6 5.5 1.5 8-7-4-7 4 1.5-8-6-5.5 8-1z" fill="#d8b56a"/>
-          </svg>
-        </div>
-      </div>
-    </div>
-    </div>
 
         </div>
       </div>
@@ -849,6 +755,8 @@
       <a class="kin-card" href="https://www.youtube.com/watch?v=vUawHomvm_s" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><div class="kin-thumb"><img src="https://i.ytimg.com/vi/vUawHomvm_s/hqdefault.jpg" alt="" loading="lazy"><span class="dur">1:06:49</span></div><div class="kin-meta"><div class="kt">Multi-Millionaire 23-year-old Swing Trader REVEALS His Strategy</div><div class="kv">9.9K views</div></div></a>
     </div>
   </div>
+  <div class="cb-hint" aria-hidden="true">Scroll to see the work <span>↓</span></div>
+  </div><!-- /cb-sticky -->
 </section>
 
 
@@ -1048,16 +956,49 @@ document.getElementById('yr').textContent=new Date().getFullYear();
     if(mq)mq.classList.toggle('hide',i!==0);
     window.jcOnSlide&&window.jcOnSlide(i);
   }
-  // holds on the current banner — advances only on click/swipe
-  document.getElementById('cbPrev').addEventListener('click',()=>go(i-1));
-  document.getElementById('cbNext').addEventListener('click',()=>go(i+1));
+  // scroll-locked showcase (desktop): scrolling flips through the banners
+  const scroller=document.getElementById('kinfo');
+  const sticky=scroller?scroller.querySelector('.cb-sticky'):null;
+  const deskMq=matchMedia('(min-width:921px)');
+  const perSlide=60; // vh of scroll per banner
+  function pinned(){return deskMq.matches&&sticky&&getComputedStyle(sticky).position==='sticky'}
+  function sizeScroller(){
+    if(!scroller)return;
+    if(deskMq.matches){scroller.style.height='calc('+(slides*perSlide)+'vh + 100vh)';scroller.style.paddingTop='0'}
+    else{scroller.style.height='';scroller.style.paddingTop='64px'}
+  }
+  sizeScroller();
+  addEventListener('resize',sizeScroller);
+  function slideOffset(n){
+    const range=scroller.offsetHeight-sticky.offsetHeight;
+    return scroller.offsetTop+(n+0.5)*(range/slides);
+  }
+  addEventListener('scroll',()=>{
+    if(!pinned())return;
+    const range=scroller.offsetHeight-sticky.offsetHeight;
+    if(range<=0)return;
+    const prog=Math.min(1,Math.max(0,-scroller.getBoundingClientRect().top/range));
+    const idx=Math.min(slides-1,Math.floor(prog*slides));
+    if(idx!==i)go(idx);
+    const hint=scroller.querySelector('.cb-hint');
+    if(hint&&prog>0.08)hint.classList.add('done');
+  },{passive:true});
+  // arrows/dots: in pinned mode, move the page scroll so the lock stays in sync
+  function nav(n){
+    n=(n+slides)%slides;
+    if(pinned()){window.scrollTo({top:slideOffset(n),behavior:'smooth'})}
+    else{go(n)}
+  }
+  document.getElementById('cbPrev').addEventListener('click',()=>nav(i-1));
+  document.getElementById('cbNext').addEventListener('click',()=>nav(i+1));
+  for(let d=0;d<slides;d++){dots[d].onclick=()=>nav(d)}
   const wrap=document.getElementById('cbWrap');
   let sx=null;
   wrap.addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
   wrap.addEventListener('touchend',e=>{
     if(sx===null)return;
     const dx=e.changedTouches[0].clientX-sx;
-    if(Math.abs(dx)>50)go(i+(dx<0?1:-1));
+    if(Math.abs(dx)>50)nav(i+(dx<0?1:-1));
     sx=null;
   },{passive:true});
   window.jcCancelDemo=()=>{};
@@ -1194,7 +1135,10 @@ document.getElementById('yr').textContent=new Date().getFullYear();
     window.jcOnSlide=idx=>{
       if(idx===myIdx){
         try{v.currentTime=0}catch(_){/**/}
-        v.muted=false;setBadge();tryPlay();
+        v.muted=false;setBadge();
+        const p=v.play();
+        // if the browser blocks unmuted play (e.g. arrival via scroll), keep playing muted instead of stopping
+        if(p)p.catch(()=>{v.muted=true;setBadge();v.play().catch(()=>{/**/})});
       }else{
         v.muted=true;setBadge();
       }
